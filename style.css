@@ -1,0 +1,455 @@
+/*-- contenedor del Login--*/
+.wrap-login {
+  display: flex;
+  transform: translate(450px, 100px);
+  width: 400px;
+  background: #eceff1;
+  border-radius: 20px;
+  overflow: hidden;
+  padding: 77px 55px 53px 55px;
+  -webkit-box-shadow: 25px 40px 28px 0px rgba(0, 0, 0, 0.38);
+ /* box-shadow: eje-x | eje-y | blur-radius | color */
+ background-color: #FFFFFF; 
+ /* background: -webkit-linear-gradient(to right, #85e96f, #2c9617);
+  background: linear-gradient(to right, #85e96f, #2c9617); */
+}
+/* alerta error login */
+.alerta-error{
+  background: red;
+}
+/* alerta error registro usuario */
+.alerta-registrar{
+  margin-top: 20px;
+  /* margin-left: 450px;
+  margin-right: 450px; */
+  text-align: center;
+  background: red;
+  border-radius: 15px;
+}
+/*----Formulario de user y password----*/
+  .login-form {
+    width: 100%;
+  }
+  .login-form-title {
+    display: block;
+    font-family: Poppins-Bold;
+    font-size: 40px;
+    color: #2c9617;
+    line-height: 1.5;
+    text-align: center;
+  }
+  /*------------------------------------------------------------------
+  [ Input ]*/
+  .wrap-input100 {
+    width: 70%;
+    position: relative;
+    border-bottom: 2px solid #adadad;
+    margin-bottom: 37px;
+    right: -55px;
+  }
+  .input100 {
+    font-family: Poppins-Regular;
+    font-size: 15px;
+    color: #000000;
+    line-height: 1.2;
+    display: block;
+    width: 100%;
+    height: 45px;
+    background: transparent;
+    padding: 0 5px;
+  } 
+  /*---------------------------------------------*/ 
+  .focus-efecto {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+  }
+  .focus-efecto::before {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 4px; /*ancho de la linea que hace el efecto de barra de progeso en el input al hacer foco*/
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+    background: #09e4b4;
+    background: -webkit-linear-gradient(left,#64b153, #1f6d10);
+    background: -o-linear-gradient(left, #64b153, #1f6d10);
+    background: -moz-linear-gradient(left, #64b153, #1f6d10);
+    background: linear-gradient(left, #64b153, #1f6d10);
+  }
+  .focus-efecto::after {
+    font-family: Poppins-Regular;
+    font-size: 15px;
+    color: #999999;
+    line-height: 1.2;
+    content: attr(data-placeholder);
+    display: block;
+    width: 100%;
+    position: absolute;
+    top: 16px;
+    left: 0px;
+    padding-left: 5px;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+  }
+  .input100:focus + .focus-efecto::after {
+    top: -15px;
+  }
+  .input100:focus + .focus-efecto::before {
+    width: 100%;
+  }
+  .has-val.input100 + .focus-efecto::after {
+    top: -15px;
+  }
+  .has-val.input100 + .focus-efecto::before {
+    width: 100%;
+  }
+  .container-login-form-btn {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 13px;
+  }
+  .wrap-login-form-btn {
+    width: 100%;
+    display: block;
+    position: relative;
+    z-index: 1;
+    border-radius: 40px 5px;
+    overflow: hidden;
+    margin: 0 auto;
+  }
+  .login-form-btn {
+    font-family: Poppins-Medium;
+    font-size: 20px;
+    color: #fff;
+    line-height: 1.2;
+    text-transform: uppercase;
+    background: #a64bf4;
+    background: -webkit-linear-gradient(right,#64b153, #1f6d10, #64b153, #1f6d10);
+    background: -o-linear-gradient(right,#64b153, #1f6d10, #64b153, #1f6d10);
+    background: -moz-linear-gradient(right,#64b153, #1f6d10, #64b153, #1f6d10);
+    background: linear-gradient(right,#64b153, #1f6d10, #64b153, #1f6d10);
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    width: 100%;
+    height: 50px;
+  }
+  
+  .wrap-login-form-btn:hover .login-form-bgbtn {
+    left: 0;
+  }
+body {
+        background-image: url(../miis/vista/assets/img/cubes.png);
+        overflow: hidden;
+        font-family: 'Ubuntu', sans-serif;
+        position: column;
+}
+/* ---------------------------------------------ESTILOS DEL SIDE BAR ------------------------------------------*/
+#navmenu{
+  position : fixed;
+  top : 0;
+  left: -3px;
+  height: 100%;
+  width: 230px;
+  background: #2c9617;
+  padding : 6px 14px;
+  transition: all 0.2s ease;
+  border-right: 2px solid #ffffff;
+  border-radius: 5px;
+}
+#navmenu ul{
+  list-style: none;
+  /* text-align: center; */
+  padding-left: 3px;
+  padding-right: 3px;
+  margin-top: 20px;
+  margin-bottom: 0px;
+}
+#navmenu ul li{
+  padding-left: 5px;
+  padding-right: 0px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  font-size: 20px;
+}
+#navmenu ul li a{
+  display: flex;
+  text-decoration: none;
+  /* align-items: center;     */
+  color: #FFFFFF;
+  border-bottom:1px solid #fff;
+  border-left:1px solid #FFFFFF;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  border-radius : 8px;
+}
+#navmenu ul li a span {
+  font-size: 15px;
+}
+#navmenu ul li :hover{
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+  background-color: #fff;
+  color: #2c9617;
+  border-radius: 8px;
+}
+#navmenu #navperfil{
+  position : fixed;
+  /* margin-top: 5%; */
+  bottom: 160px;
+}
+  /* div perfil y cerrar sesion */
+  .card {
+    width: 210px;
+    height: 150px;
+    /* Add shadows to create the "card" effect */
+    /* box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); */
+    transition: 0.3s;
+    position: fixed;
+    float: right;
+    /* margin-left: -100px; */
+    align-items: center;
+    background:#2c9617;
+    padding-top: 10px;
+  }
+  #divperfil {
+    text-align: center;
+  }
+  .card i{
+    font-size: 50px;
+    color: white;
+  }
+
+  .card h4 {
+      font-size: 15px;
+      color: white;
+      pointer-events: none;
+  }
+  #divcerrar{
+    text-align: center;
+  }
+  .card a {
+      color : red;
+  }
+  /* On mouse-over, add a deeper shadow */
+  .card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+/* ---------------------------------------------CONTENIDO ------------------------------------------*/
+.container{
+  position: fixed;
+  margin-top: 20px;
+  margin-right: 5px;
+  /* padding: 20px; */
+  right: 50px!important;
+  width:75%!important;
+  overflow: hidden;
+  height: 80%!important;
+  background-color: rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 1px rgba(0,0,0,0.3), 0px 3px 7px rgba(0,0,0,0.3), 0px 0px 1px #FFFFFF inset, 0px -3px 2px rgba(0,0,0,0.25) inset;
+}
+.container label{
+  width: 120px;
+}
+.container h1{
+  text-align: center;
+}
+textarea {
+  resize: none;
+  width: 170px;
+}
+#containerform{
+  position:fixed;
+  margin-left: 300px;
+}
+#containerform label{
+  width: 120px;
+}
+#containerform select{
+  display: inline-block;
+}
+/* ---------------------------------------------BOTONES ------------------------------------------*/
+#btnagregarr{
+  appearance: none;
+  backface-visibility: hidden;
+  background: transparent;
+  border-radius: 8px;
+  border-style: none;
+  box-shadow: rgba(39, 174, 96, .15) 0 4px 9px;
+  box-sizing: border-box;
+  color: #2c9617;
+  cursor: pointer;
+  display: inline;
+  font-family: Inter,-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: normal;
+  line-height: 1.5;
+  outline: none;
+  overflow: hidden;
+  /* padding: 13px 20px; */
+  position: relative;
+  top: -30px;
+  right: -200px;
+  text-align: center;
+  text-decoration: none;
+  transform: translate3d(0, 0, 0);
+  transition: all .3s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: top;
+  white-space: nowrap;
+}
+#btnagregarr i{
+    font-size:30px
+}
+#btnagregarr:hover{
+    text-decoration: none;
+    color: #FFFFFF;
+    background-color: #2c9617;
+    border-radius: 30px;
+}
+.btn-delete {
+  font-size: 20px;
+  color: #ff0000;
+  padding-top: 7px;
+}
+.btn-delete:hover{
+  color:#ffffff;
+  background-color: #ff0000;
+  border-radius: 19px;
+}
+.btn-edit{
+  font-size: 20px;
+  color: #2c9617;
+  padding-top: 7px;
+}
+.btn-edit:hover{
+  color: #ffffff;
+  background-color: #2c9617;
+  border-radius: 19px;
+}
+#btninsumo{
+  position:fixed;
+  left: 650px;
+  top: 460px;
+}
+/* ---------------------------------------------PIE DE PAGINA ------------------------------------------*/
+#pie{
+  position: fixed;
+  bottom: 0;
+  right: 520px;
+  
+}
+#divselect{
+  position: fixed;
+  right: 450px;
+  top : 100px!important;
+}
+/* select categoria insumo */
+#contenidoocult{
+  position: fixed;
+  display: none;
+  right: 150px;
+  top : 250px;
+}
+#contenidooculto{
+  position: fixed;
+  display: none;
+  right: 150px;
+  top : 100px;
+}
+#contenidooculti{
+  position: fixed;
+  display: inline-block;
+  right: 160px;
+  top : 120px;
+}
+#contenidooculti2{
+  position: fixed;
+  display: inline-block;
+  right: 150px;
+  top : 280px;
+}
+#contenidooculto select {
+  width: 220px;
+}
+#contenidoocult select {
+  width: 220px;
+}
+#categoriainsumo{
+  width: 250px;
+}
+#lista1{
+  width: 250px;
+}
+#lista2{
+  width: 250px;
+}
+#lista3{
+  width: 250px;
+}
+.checkbox{
+  position: fixed;
+  display: block;
+  transform: translate(350px, 30px);
+}
+select{
+  display:block;
+  
+}
+#table_insumo_filter input{
+  position: fixed;
+  display: block;
+  left: 1030px;
+}
+#table_centro_filter input{
+  position: fixed;
+  display: block;
+  left: 1030px;
+}
+#table_departamento_filter input{
+  position: fixed;
+  display: block;
+  left: 1030px;
+}
+#table_box_filter input{
+  position: fixed;
+  display: block;
+  left: 1030px;
+}
+#table_user_filter input{
+  position: fixed;
+  display: block;
+  left: 1030px;
+}
+#table_historial_filter input{
+  position: fixed;
+  display: block;
+  left: 1030px;
+}

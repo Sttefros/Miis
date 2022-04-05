@@ -325,6 +325,9 @@ textarea {
   vertical-align: top;
   white-space: nowrap;
 }
+.btnaccion{
+  background: transparent;
+}
 #btnagregarr i{
     font-size:30px
 }

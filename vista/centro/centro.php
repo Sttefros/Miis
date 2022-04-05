@@ -42,11 +42,15 @@
                                     if(isset($_SESSION['administrador'])){
                                 ?>
                                     <td>
-                                         <a  class='btn-edit' href='index.php?c=centro&a=modificar&id=<?php echo $dato["id_centro"]?>'>
+                                         <a  href='index.php?c=centro&a=modificar&id=<?php echo $dato["id_centro"]?>'>
+                                         <button class='btn-edit' >
                                             <i class='bx bx-edit'></i>
+                                         </button> 
                                          </a> 
-                                         <a class='btn-delete' href='index.php?c=centro&a=eliminar&id=<?php echo $dato["id_centro"]?>' >
+                                         <a  href='index.php?c=centro&a=eliminar&id=<?php echo $dato["id_centro"]?>' >
+                                         <button class='btn-delete'>
                                             <i class='bx bx-trash'></i>
+                                            </button> 
                                          </a>
                                     </td>
                                 <?php

@@ -29,10 +29,11 @@ class Departamento_model{
                             AND id_centro = '$centro'";
         $resultado =$this->db->query($validarNombre);
         $row = $resultado->fetch_assoc();
-        if($row['nomb'] > 0 ){
-            $_SESSION['error_registro'] = "¡Vaya!, este departamento ya esta registrado 💔";
+        if($row['nomb'] > 0 ){?>
+            <script>alert("El departamento no pudo registrarse");</script><?php
         }else{
-            $resultado = $this->db->query("INSERT INTO departamento (id_departamento,nombre,id_centro) VALUES (null, '$nombre', '$centro')");
+            $resultado = $this->db->query("INSERT INTO departamento (id_departamento,nombre,id_centro) VALUES (null, '$nombre', '$centro')");?>
+            <script>alert("Departamento creado exitosamente");</script><?php
         }
     }
     // OBTENER UN DEPARTAMENTO POR SU ID
@@ -58,8 +59,11 @@ class Departamento_model{
         return $this->departamentos;
     }
     // MODIFICAR REGISTRO DE DEPARTAMENTO
-    public function modificarDepartamento($id, $nombre, $centro){
-        $resultado= $this->db->query("UPDATE departamento SET nombre='$nombre' , id_centro = '$centro' WHERE id_departamento='$id'");
+    public function modificarDepartamento($id, $nombre){
+        $resultado= $this->db->query("UPDATE departamento SET nombre='$nombre'  WHERE id_departamento='$id'");
+        if($resultado == true){?>
+            <script>alert("El nombre del departamento se actualizo");</script><?php
+        }
     }
     public function listar_combo_departamento($idcentro){
         $sql = "SELECT d.* 
@@ -73,6 +77,26 @@ class Departamento_model{
         // return $this->departamentos;
         return $resultado;
     }
-    
+    public function eliminarDepartamento($id){
+        $consulta = "SELECT d.*,
+        (SELECT COUNT(*)
+           FROM insumo
+           WHERE id_departamento = '$id' ) AS 'dispositivos'
+       FROM departamento d
+       ORDER BY d.id_departamento ASC";
+       $resultado = $this->db->query($consulta);
+       $row= $resultado->fetch_assoc();
+       if($row['dispositivos'] > 0){
+           $sql = false;
+        }else{
+           $sql = $this->db->query("DELETE FROM departamento WHERE id_departamento = '$id'");
+       }
+       if($sql == true){?>
+        <script>alert("Departamento Eliminado");</script><?php
+       }else{?>
+        <script>alert("Departamento no Eliminado, mantiene dispositivo vinculado.");</script><?php
+
+       }
+    }
 }
 ?>

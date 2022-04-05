@@ -72,17 +72,31 @@ class Usuario_model{
         $row = $resultado->fetch_assoc();
         $row1 = $resultado1->fetch_assoc();
         
-        if($row['cantidad'] > 0){
-            $_SESSION['error_registro'] = "¡Vaya!, este rut ya esta registrado 💔";
-        }elseif($row1['corre'] > 0){
-            $_SESSION['error_registro'] =  "¡Vaya!, este correo ya esta registrado 💔";
+        if($row['cantidad'] > 0){?>
+            <script>alert("El rut ya se encuentra registrado");</script><?php
+        }elseif($row1['corre'] > 0){?>
+            <script>alert("El correo ya se encuentra registrado");</script><?php
         }else{
             $resultado = $this->db->query("INSERT INTO usuario (id_usuario,rut,password,telefono,correo,id_rol) VALUES (null, '$rut', '$password', '$telefono', '$correo', '$rol')");
         }
         
     }
     public function eliminarUsuario($id){
-        $resultado = $this->db->query("DELETE FROM usuario WHERE id_usuario = '$id' AND id_rol != '1'");
+        $validacionUsuarioEncargado = "SELECT COUNT(*) FROM `centro` WHERE id_usuario = '$id'";
+        $resultado = $this->db->query($validacionUsuarioEncargado);
+        
+        $row = $resultado->fetch_assoc();
+        if($row == 0){
+            $resultado = false;
+        }else{
+            $resultado = $this->db->query("DELETE FROM usuario WHERE id_usuario = '$id' AND id_rol != '1'");
+        }
+
+        if($resultado == true){?>
+            <script>alert("Usuario Eliminado");</script><?php
+        }else{?>
+            <script>alert("Usuario mantiene un centro a su cargo");</script><?php
+        }
    
     }
     public function modificarUsuario($id, $rut, $password, $telefono, $correo, $rol){

@@ -11,6 +11,7 @@
         <form action="index.php?c=insumo&a=actualizar" method="POST" autocomplete="off">
         <br><br>
         <input type="hidden" name="id" id="id" value="<?php echo $data["id"] ?>" />
+        <input type="hidden" name="boxantiguo" id="boxantiguo" value="<?php echo $data["insumo"]["id_box"] ?>" />
         <label >MARCA      : </label>
         <input type="text" required name="marca" value="<?php echo $data["insumo"]["marca"] ?>" /><br><br>
         <label >MODELO     : </label>
@@ -23,13 +24,28 @@
         <label >CATEGORIA: </label><br><br>
         <input type="text"  name="categoria" value="<?php echo $data["insumo"]["categoria"] ?>" readonly/>
         <input type="hidden"  name="categoriass" value="<?php echo $data["insumo"]["id_categoria"] ?>" readonly/>
+        <?php 
+            if(isset($ididcpu)){?>
+                <input type="hidden"  name="idcpuantigua" value="<?php echo $ididcpu?>" readonly/>
+        <?php } ?>
+        <?php 
+            if(isset($ididram)){?>
+                <input type="hidden"  name="idramantigua" value="<?php echo $ididram ?>" readonly/>
+        <?php } ?>
+        <?php 
+            if(isset($ididalmacenamiento)){?>
+                <input type="hidden"  name="idalmacenamientoantiguo" value="<?php echo $ididalmacenamiento?>" readonly/>
+        <?php } ?>
+
+        
+        
                 <div id="divselect">
                    
 
                      
                     <input type="submit" id="btninsumo" name="btncrear" value="GUARDAR" style=" border-radius:5px"/>
                     <br>
-                    <?php if($data["insumo"]["id_categoria"] == 1 || $data["insumo"]["id_categoria"] == 2 || $data["insumo"]["id_categoria"] == 3 || $data["insumo"]["id_categoria"] == 4 || $data["insumo"]["id_categoria"] == 5 ){ ?>
+                    <?php if($data["insumo"]["id_categoria"] == 1 || $data["insumo"]["id_categoria"] == 2 || $data["insumo"]["id_categoria"] == 3 || $data["insumo"]["id_categoria"] == 4 || $data["insumo"]["id_categoria"] == 5 || $data["insumo"]["id_categoria"] == 9 || $data["insumo"]["id_categoria"] == 10 || $data["insumo"]["id_categoria"] == 11 ){ ?>
                             <label >UBICACION: </label>
                         <!-- combobox para seleccionar el centro donde se quiere agregar un nuevo insumo -->
                         <select name="lista1" id="lista1" required onChange="departament(this.value)"> 
@@ -98,49 +114,83 @@
 
                 <?php
             if($data["insumo"]["id_categoria"] == 1 || $data["insumo"]["id_categoria"] == 2){?>
-<!-- ----------------------------------SELECTORES DE PERIFERICOS------------------------------------------ -->
+<!-- ----------------------------------SELECTORES DE COMPONENTE------------------------------------------ -->
                 <div id="contenidooculti">
-           
                     <label >Procesador:   </label>
                         <select name="procesador" id="procesador">
                             <?php
-                            echo "<option selected value=".$idcpu.">".$marcacpu." ".$numseriecpu."</option>";
+                            if(empty($idcpu)){
+                                echo "<option selected value=''>No asignado</option>";
                                 foreach($data["cpu"] as $dato){
-                                        echo "<option value=".$dato["id_insumo"].">".$dato["marca"]." ".$dato["num_serie"]."</option>";
+                                    if($dato['id_insumo'] ==  $idcpu){
+                                        echo "<option hidden value=".$ididcpu."></option>";
+                                    }else{
+                                        echo "<option value=".$ididcpu["id_insumo"].">".$dato["marca"]." ".$dato["num_serie"]."</option>";
+                                    }
+                                   
                                 }
+                            }else{
+                                echo "<option selected value=".$ididcpu.">".$marcacpu." ".$numseriecpu."</option>";
+                                foreach($data["cpu"] as $dato){
+                                       if($dato['id_insumo'] ==  $ididcpu){
+                                            echo "<option hidden value=".$ididcpu."></option>";
+                                       }else{
+                                            echo "<option value=".$dato["id_insumo"].">".$dato["marca"]." ".$dato["num_serie"]."</option>";
+                                       }
+                                }
+                            }
                             ?>
                         </select>
-    <!-- --------------------------------------------RAM------------------------------------------------------------------------- -->
-                    <label >RAM:   </label>
+    <!-- --------------------------------------------RAM------------------------------------------------------------------------- -->     
+                        <label >RAM:   </label>
                         <select name="ram">
                         <?php 
-                        echo "<option selected value=".$idram.">".$marcaram." ".$numserieram."</option>";
+                        if(empty($idram)){
+                            echo "<option selected value=''>No asignada</option>";
                             foreach($data["ram"] as $dato){
-                                if($dato['id_insumo'] ==  $idram){
-                                    echo "<option hidden value=".$idram."></option>";
+                                if($dato['id_insumo'] ==  $ididram){
+                                    echo "<option hidden value=".$ididram."></option>";
                                 }else{
                                     echo "<option value=".$dato["id_insumo"].">".$dato["marca"]." ".$dato["num_serie"]."</option>";
                                 }
                                
                             }
+                        }else{
+                            echo "<option selected value=".$ididram.">".$marcaram." ".$numserieram."</option>";
+                            foreach($data["ram"] as $dato){
+                                if($dato['id_insumo'] ==  $ididram){
+                                    echo "<option hidden value=".$ididram."></option>";
+                                }else{
+                                    echo "<option value=".$dato["id_insumo"].">".$dato["marca"]." ".$dato["num_serie"]."</option>";
+                                }
+                               
+                            }
+                        }
                         ?>
                         </select>       
     <!-- -----------------------------------------ALMACENAMIENTO-------------------------------------------------------------------------------- -->
-                   <label >Almacenamiento:   </label>
+                        <label >Almacenamiento:   </label>
                         <select name="almacenamiento">
-                        <?php foreach ($data["almacenamiento"] as $dato){
-                                if(isset($idalmacenamiento)){
-                                    echo "<option selected value=".$idalmacenamiento.">".$marcaalmacenamiento." ".$numseriealmacenamiento."</option>"; 
+                        <?php 
+                        if(empty($idalmacenamiento)){
+                            echo "<option selected value=''>No asignado</option>";
+                            foreach($data["almacenamiento"] as $dato){
+                                if($dato['id_insumo'] ==  $ididalmacenamiento){
+                                    echo "<option hidden value=".$ididalmacenamiento."></option>";
                                 }else{
-                                    echo "<option  value='' selected  >      -- seleccione un procesador -- </option>";
+                                    echo "<option value=".$dato["id_insumo"].">".$dato["marca"]." ".$dato["num_serie"]."</option>";
                                 }
-                            
-                            if($dato['id_insumo'] ==  $idalmacenamiento){
+                               
+                            }
+                        }else{
+                            echo "<option selected value=".$ididalmacenamiento.">".$marcaalmacenamiento." ".$numseriealmacenamiento."</option>";
+                        foreach ($data["almacenamiento"] as $dato){
+                            if($dato['id_insumo'] ==  $ididalmacenamiento){
                                 echo "<option hidden value=".$dato["id_insumo"].">".$dato["marca"]." ".$dato["num_serie"]."</option>";
                             }else{
                                 echo "<option value=".$dato["id_insumo"].">".$dato["marca"]." ".$dato["num_serie"]."</option>";
                             }
-                            
+                        }
                         }
                         ?>
                         </select>      

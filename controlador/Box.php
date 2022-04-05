@@ -21,7 +21,7 @@ class BoxController{
     public function guardar(){
         $id = null;
         $nombre = $_POST["nombre"];
-        $departamento = $_POST["lista2"];
+        $departamento = $_POST["lista22"];
 
         $box = new Box_model();
         $box->insertarBox($id, $nombre, $departamento);
@@ -42,9 +42,8 @@ class BoxController{
     public function actualizar(){
         $id = $_POST["id"];
         $nombre = $_POST["nombre"];
-        $departamento = $_POST["departamento"];
         $box = new Box_model();
-        $box->modificarBox($id, $nombre,$departamento);
+        $box->modificarBox($id, $nombre);
         $data["titulo"] = "BOX";
         $this->index();
     }

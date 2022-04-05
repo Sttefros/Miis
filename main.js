@@ -30,3 +30,22 @@ function listar_combo_box(iddepartamento){
     })
 }
 
+
+function alerta_eliminar_usuario(idrol){
+
+
+    if(idrol == 1){
+        var respuesta = confirm("Los usuarios administradores no pueden ser eliminados");
+        return false;
+    }else{
+        var respuesta = confirm("Estas seguro que deseas eliminar al usuario ?");
+
+        if(respuesta == true){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+}
+

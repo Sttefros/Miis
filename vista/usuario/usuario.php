@@ -44,8 +44,10 @@
                                 <?php 
                                     if(isset($_SESSION['administrador'])){
                                 ?>
-                                    <td> <a  class='btn-edit' href='index.php?c=usuario&a=modificar&id=<?php echo $dato["id_usuario"]?>' ><i class='bx bx-edit'></i>
-                                        <a class='btn-delete' href='index.php?c=usuario&a=eliminar&id=<?php echo $dato["id_usuario"]?>' ><i class='bx bx-trash'></i></a> </td>
+                                    <td>
+                                        <a   href='index.php?c=usuario&a=modificar&id=<?php echo $dato["id_usuario"]?>' ><button class='btn-edit' ><i class='bx bx-edit'></i> </button> </a> 
+                                        <a  href='index.php?c=usuario&a=eliminar&id=<?php echo $dato["id_usuario"]?>' ><button class='btn-delete' onClick='return alerta_eliminar_usuario(<?php echo $dato["id_rol"]?>)'> <i class='bx bx-trash'></i></button> </a>
+                                    </td>
                             
                                 <?php
                                     }
@@ -66,10 +68,6 @@
     $(document).ready(function() {
         $('#table_user').DataTable();
             });
-
-
-      
-
 
     var a = $('#table_user').dataTable({
         "scrollY":        "265px",

@@ -58,6 +58,7 @@ Class InsumoController{
         require_once 'vista/insumo/insumo_nuevo.php';
     }
     public function guardar(){
+        // var_dump($_POST);die();
         session_start();
         $id = "null";
         $marca = $_POST["marca"];
@@ -66,8 +67,8 @@ Class InsumoController{
         $descripcion = $_POST["descripcion"];
         $id_categoria = $_POST["categoria"];
         $id_centro = $_POST["lista1"];
-        $id_departamento = $_POST["lista2"];
-        $id_box = $_POST["lista3"];
+        $id_departamento = $_POST["lista22"];
+        $id_box = $_POST["lista33"];
         $asignado = 0;
         $estado = 0;
         $id_extra = "null";
@@ -158,26 +159,31 @@ Class InsumoController{
         $data["extras"] = $insumo->get_insumo_serie($data["insumo"]["num_serie"]);
         // llamar a la funcion para cargar los componentes del insumo pc o notebook
        
+        
         if(isset($data["extras"])){
             foreach($data["extras"] as $dato){
+               
                 switch ($dato)
                 {
                     case $dato["idcateextra"] == 6 :
+                        $ididcpu = $dato["id_extras"];
                         $idcpu = $dato["idcateextra"];
                         $marcacpu = $dato["marcaextra"];
                         $numseriecpu = $dato["numserieextra"];
                     break;
                     
                     case $dato["idcateextra"] == 7:
+                        $ididram = $dato["id_extras"];
                         $idram = $dato["idcateextra"];
                         $marcaram = $dato["marcaextra"];
                         $numserieram = $dato["numserieextra"];
                     break;
                     
                     case $dato["idcateextra"] == 8:
-                            $idalmacenamiento = $dato["idcateextra"];
-                            $marcaalmacenamiento = $dato["marcaextra"];
-                            $numseriealmacenamiento = $dato["numserieextra"];
+                        $ididalmacenamiento = $dato["id_extras"];
+                        $idalmacenamiento = $dato["idcateextra"];
+                        $marcaalmacenamiento = $dato["marcaextra"];
+                        $numseriealmacenamiento = $dato["numserieextra"];
                         
                     break;
 
@@ -198,6 +204,7 @@ Class InsumoController{
         require_once 'vista/insumo/insumo_editar.php';
     }
     public function actualizar() {
+        // var_dump($_POST);die();
         session_start();
         if(isset($_SESSION['administrador'])){
             $usuario = $_SESSION['administrador']['id_usuario'];
@@ -211,6 +218,9 @@ Class InsumoController{
         $modelo = $_POST["modelo"];
         $descripcion = $_POST["descripcion"];
         $id_categoria = $_POST["categoriass"];
+        $serie = $_POST["serie"];
+        $estado = 0;
+        $asignado = 0;
         
         if(isset($_POST["lista11"])){
             $id_centro = $_POST["lista11"];
@@ -233,7 +243,12 @@ Class InsumoController{
                 $id_box = $_POST["lista3"];
             }
         }
-        
+        if($id_departamento == 0){?>
+            <script>alert("Debes ingresar un departamento.");</script><?php
+        }
+        if($id_box == 0){?>
+            <script>alert("Debes ingresar un box.");</script><?php
+        }
         if(isset($_POST["procesador"])){
             $cpu = $_POST["procesador"];
         }
@@ -250,37 +265,178 @@ Class InsumoController{
         $historial = new Historial_model();
         switch ($_POST["categoriass"])
                 {
+// -------------------------------------------------------------------CATEGORIA PC ESCRITORIO-------------------------------------------------------------------------------------------
+
+                    case $_POST["categoriass"] == 1 :
+// ------------------------------------------------------------------------CPU-------------------------------------------------------------------------------------------
+                        if(isset($_POST["idcpuantigua"])){
+                            if($_POST["idcpuantigua"] != $_POST["procesador"]){
+                                $insumo->cambiarAsignadoInsumolibre($_POST["idcpuantigua"]);
+                                $insumo->cambiarAsignadoInsumo($_POST["procesador"]);
+    
+                                $data["xD"] = $insumo->updatearinsumoextracpu($_POST["serie"]);
+                                $insumo->actualizarextra($data["xD"]["id_insumo"],$_POST["procesador"] );
+                            }
+                        }else if(isset($_POST["procesador"])){
+                                $insumo->insertarInsumo($id,$marca,$modelo,$serie,$descripcion,$asignado,$estado,$id_centro,$id_departamento, $id_box, $id_categoria,$cpu,$usuario);
+                                $insumo->cambiarAsignadoInsumo($cpu);
+                        }
+                        
+// ------------------------------------------------------------------------RAM-------------------------------------------------------------------------------------------
+                        if(isset($_POST["idramantigua"])){
+                            if($_POST["idramantigua"] != $_POST["ram"]){
+                                $insumo->cambiarAsignadoInsumolibre($_POST["idramantigua"]);
+                                $insumo->cambiarAsignadoInsumo($_POST["ram"]);
+                                
+                                $data["xD"] = $insumo->updatearinsumoextraram($_POST["serie"]);
+                                $insumo->actualizarextra($data["xD"]["id_insumo"],$_POST["ram"] );
+                            }
+                        }else if(isset($_POST["ram"])){
+                                $insumo->insertarInsumo($id,$marca,$modelo,$serie,$descripcion,$asignado,$estado,$id_centro,$id_departamento, $id_box, $id_categoria,$ram,$usuario);
+                                $insumo->cambiarAsignadoInsumo($ram);
+                        }
+                        
+// ------------------------------------------------------------------------ALMACENAMIENTO---------------------------------------------------------------------------------
+                        if(isset($_POST["idalmacenamientoantiguo"])){
+                            if($_POST["idalmacenamientoantiguo"] != $_POST["almacenamiento"]){
+                                $insumo->cambiarAsignadoInsumolibre($_POST["idalmacenamientoantiguo"]);
+                                $insumo->cambiarAsignadoInsumo($_POST["almacenamiento"]);
+    
+                                $data["xD"] = $insumo->updatearinsumoextraalmacenamiento($_POST["serie"]);
+                                $insumo->actualizarextra($data["xD"]["id_insumo"],$_POST["almacenamiento"] );
+                            }
+                        }else if(isset($_POST["almacenamiento"])){
+                                $insumo->insertarInsumo($id,$marca,$modelo,$serie,$descripcion,$asignado,$estado,$id_centro,$id_departamento, $id_box, $id_categoria,$almacenamiento,$usuario);
+                                $insumo->cambiarAsignadoInsumo($almacenamiento);
+                        }
+                    break;
+// -------------------------------------------------------------------CATEGORIA NOTEBOOK-------------------------------------------------------------------------------------------
+
+                    case $_POST["categoriass"] == 2 :
+// ------------------------------------------------------------------------CPU-------------------------------------------------------------------------------------------
+                    if(isset($_POST["idcpuantigua"])){
+                        if($_POST["idcpuantigua"] != $_POST["procesador"]){
+                            $insumo->cambiarAsignadoInsumolibre($_POST["idcpuantigua"]);
+                            $insumo->cambiarAsignadoInsumo($_POST["procesador"]);
+
+                            $data["xD"] = $insumo->updatearinsumoextracpu($_POST["serie"]);
+                            $insumo->actualizarextra($data["xD"]["id_insumo"],$_POST["procesador"] );
+                        }
+                    }else if(isset($_POST["procesador"])){
+                            $insumo->insertarInsumo($id,$marca,$modelo,$serie,$descripcion,$asignado,$estado,$id_centro,$id_departamento, $id_box, $id_categoria,$cpu,$usuario);
+                            $insumo->cambiarAsignadoInsumo($cpu);
+                    }
+
+// ------------------------------------------------------------------------RAM-------------------------------------------------------------------------------------------
+                    if(isset($_POST["idramantigua"])){
+                        if($_POST["idramantigua"] != $_POST["ram"]){
+                            $insumo->cambiarAsignadoInsumolibre($_POST["idramantigua"]);
+                            $insumo->cambiarAsignadoInsumo($_POST["ram"]);
+                            
+                            $data["xD"] = $insumo->updatearinsumoextraram($_POST["serie"]);
+                            $insumo->actualizarextra($data["xD"]["id_insumo"],$_POST["ram"] );
+                        }
+                    }else if(isset($_POST["ram"])){
+                            $insumo->insertarInsumo($id,$marca,$modelo,$serie,$descripcion,$asignado,$estado,$id_centro,$id_departamento, $id_box, $id_categoria,$ram,$usuario);
+                            $insumo->cambiarAsignadoInsumo($ram);
+                    }
+
+// ------------------------------------------------------------------------ALMACENAMIENTO---------------------------------------------------------------------------------
+                    if(isset($_POST["idalmacenamientoantiguo"])){
+                        if($_POST["idalmacenamientoantiguo"] != $_POST["almacenamiento"]){
+                            $insumo->cambiarAsignadoInsumolibre($_POST["idalmacenamientoantiguo"]);
+                            $insumo->cambiarAsignadoInsumo($_POST["almacenamiento"]);
+
+                            $data["xD"] = $insumo->updatearinsumoextraalmacenamiento($_POST["serie"]);
+                            $insumo->actualizarextra($data["xD"]["id_insumo"],$_POST["almacenamiento"] );
+                        }
+                    }else if(isset($_POST["almacenamiento"])){
+                            $insumo->insertarInsumo($id,$marca,$modelo,$serie,$descripcion,$asignado,$estado,$id_centro,$id_departamento, $id_box, $id_categoria,$almacenamiento,$usuario);
+                            $insumo->cambiarAsignadoInsumo($almacenamiento);
+                    }
+                    break;
+
+// -------------------------------------------------------------------CATEGORIA PANTALLA -------------------------------------------------------------------------------------------
                     case $_POST["categoriass"] == 3 :
                             $insumo->modificarInsumoPeri($id, $marca, $modelo, $descripcion, $id_centro, $id_departamento, $id_box);
-                            $historial->insertarHistorial($idd,$usuario, $id, $id_categoria, $id_centro, $id_departamento,$id_box);
+                            if(isset($_POST["lista22"])){
+                                if(isset($_POST["lista33"])){
+                                    $historial->insertarHistorial($idd,$usuario, $id, $id_categoria, $id_centro, $id_departamento,$id_box);
+                                }
+                            }else if($_POST["lista3"] != $_POST["boxantiguo"]){
+                                $historial->insertarHistorial($idd,$usuario, $id, $id_categoria, $id_centro, $id_departamento,$id_box);
+                            }
                     break;
-                    
+// -------------------------------------------------------------------CATEGORIA MOUSE-------------------------------------------------------------------------------------------
                     case $_POST["categoriass"] == 4:
                         $insumo->modificarInsumoPeri($id, $marca, $modelo, $descripcion, $id_centro, $id_departamento, $id_box);
-                        $historial->insertarHistorial($idd,$usuario, $id, $id_categoria, $id_centro, $id_departamento,$id_box);
+                        if(isset($_POST["lista22"])){
+                            if(isset($_POST["lista33"])){
+                                $historial->insertarHistorial($idd,$usuario, $id, $id_categoria, $id_centro, $id_departamento,$id_box);
+                            }
+                        }else if($_POST["lista3"] != $_POST["boxantiguo"]){
+                            $historial->insertarHistorial($idd,$usuario, $id, $id_categoria, $id_centro, $id_departamento,$id_box);
+                        }
                     break;
-                    
+// -------------------------------------------------------------------CATEGORIA TECLADO-------------------------------------------------------------------------------------------
                     case $_POST["categoriass"] == 5:
                         $insumo->modificarInsumoPeri($id, $marca, $modelo, $descripcion, $id_centro, $id_departamento, $id_box);
-                        $historial->insertarHistorial($idd,$usuario, $id, $id_categoria, $id_centro, $id_departamento,$id_box);
+                        if(isset($_POST["lista22"])){
+                            if(isset($_POST["lista33"])){
+                                $historial->insertarHistorial($idd,$usuario, $id, $id_categoria, $id_centro, $id_departamento,$id_box);
+                            }
+                        }else if($_POST["lista3"] != $_POST["boxantiguo"]){
+                            $historial->insertarHistorial($idd,$usuario, $id, $id_categoria, $id_centro, $id_departamento,$id_box);
+                        }
                     break;
+// -------------------------------------------------------------------CATEGORIA CPU-------------------------------------------------------------------------------------------
                     case $_POST["categoriass"] == 6 :
                         $insumo->modificarInsumo($id, $marca, $modelo, $descripcion);
                     break;
-                    
+// -------------------------------------------------------------------CATEGORIA RAM-------------------------------------------------------------------------------------------
                     case $_POST["categoriass"] == 7:
                         $insumo->modificarInsumo($id, $marca, $modelo, $descripcion);
                     break;
-                    
+// -------------------------------------------------------------------CATEGORIA ALMACENAMIENTO-------------------------------------------------------------------------------------------
                     case $_POST["categoriass"] == 8:
                         $insumo->modificarInsumo($id, $marca, $modelo, $descripcion);
                     break;
+// -------------------------------------------------------------------CATEGORIA SMARTPHONE-------------------------------------------------------------------------------------------
+                    case $_POST["categoriass"] == 9:
+                        $insumo->modificarInsumoPeri($id, $marca, $modelo, $descripcion, $id_centro, $id_departamento, $id_box);
+                        if(isset($_POST["lista22"])){
+                            if(isset($_POST["lista33"])){
+                                $historial->insertarHistorial($idd,$usuario, $id, $id_categoria, $id_centro, $id_departamento,$id_box);
+                            }
+                        }else if($_POST["lista3"] != $_POST["boxantiguo"]){
+                            $historial->insertarHistorial($idd,$usuario, $id, $id_categoria, $id_centro, $id_departamento,$id_box);
+                        }
+                    break;
+// -------------------------------------------------------------------CATEGORIA HUELLERO -------------------------------------------------------------------------------------------
+                    case $_POST["categoriass"] == 10 :
+                        $insumo->modificarInsumoPeri($id, $marca, $modelo, $descripcion, $id_centro, $id_departamento, $id_box);
+                        if(isset($_POST["lista22"])){
+                            if(isset($_POST["lista33"])){
+                                $historial->insertarHistorial($idd,$usuario, $id, $id_categoria, $id_centro, $id_departamento,$id_box);
+                            }
+                        }else if($_POST["lista3"] != $_POST["boxantiguo"]){
+                            $historial->insertarHistorial($idd,$usuario, $id, $id_categoria, $id_centro, $id_departamento,$id_box);
+                        }
+                break;
+// -------------------------------------------------------------------CATEGORIA IMPRESORA TERMICA-------------------------------------------------------------------------------------------
+                case $_POST["categoriass"] == 11:
+                    $insumo->modificarInsumoPeri($id, $marca, $modelo, $descripcion, $id_centro, $id_departamento, $id_box);
+                    if(isset($_POST["lista22"])){
+                        if(isset($_POST["lista33"])){
+                            $historial->insertarHistorial($idd,$usuario, $id, $id_categoria, $id_centro, $id_departamento,$id_box);
+                        }
+                    }else if($_POST["lista3"] != $_POST["boxantiguo"]){
+                        $historial->insertarHistorial($idd,$usuario, $id, $id_categoria, $id_centro, $id_departamento,$id_box);
+                    }
+                break;
                 }
         
-        
-        
         // $insumo->modificarInsumo($id, $marca, $modelo, $descripcion, $id_centro, $id_departamento, $id_box);
-        
         // $insumo->cambiarAsignadoInsumo($almacenamiento);
         // $insumo->cambiarAsignadoInsumo($ram);
         // $insumo->cambiarAsignadoInsumo($pcu);
@@ -350,6 +506,7 @@ Class InsumoController{
         require_once 'vista/encargado/insumo_editar_encargado.php';
     }
     public function actualizarEncargado() {
+        // var_dump($_POST);die();
         session_start();
         if(isset($_SESSION['encargado'])){
             $usuario = $_SESSION['encargado']['id_usuario'];
@@ -388,19 +545,102 @@ Class InsumoController{
         $historial = new Historial_model();
         switch ($_POST["categoriass"])
                 {
+                    case $_POST["categoriass"] == 1 :
+                        if(!isset($_POST["lista22"])){
+                            if(!isset($_POST["lista33"])){
+                                $insumo->modificarInsumoPeri($id, $marca, $modelo, $descripcion, $id_centro, $id_departamento, $id_box);
+                                $historial->insertarHistorial($idd,$usuario, $id, $id_categoria, $id_centro, $id_departamento,$id_box);
+                            }else{
+                                $insumo->modificarInsumoPeri($id, $marca, $modelo, $descripcion, $id_centro, $id_departamento, $id_box);
+                                $historial->insertarHistorial($idd,$usuario, $id, $id_categoria, $id_centro, $id_departamento,$id_box);
+                            }
+                        }
+                        if(isset($_POST["lista22"])){
+                            if($_POST["lista33"]){
+                                $insumo->modificarInsumoPeri($id, $marca, $modelo, $descripcion, $id_centro, $id_departamento, $id_box);
+                                $historial->insertarHistorial($idd,$usuario, $id, $id_categoria, $id_centro, $id_departamento,$id_box);
+                            }else{
+
+                            }
+                        }
+                    break;
+                    case $_POST["categoriass"] == 2 :
+                        if(!isset($_POST["lista22"])){
+                            if(!isset($_POST["lista33"])){
+                                $insumo->modificarInsumoPeri($id, $marca, $modelo, $descripcion, $id_centro, $id_departamento, $id_box);
+                                $historial->insertarHistorial($idd,$usuario, $id, $id_categoria, $id_centro, $id_departamento,$id_box);
+                            }else{
+                                $insumo->modificarInsumoPeri($id, $marca, $modelo, $descripcion, $id_centro, $id_departamento, $id_box);
+                                $historial->insertarHistorial($idd,$usuario, $id, $id_categoria, $id_centro, $id_departamento,$id_box);
+                            }
+                        }
+                        if(isset($_POST["lista22"])){
+                            if($_POST["lista33"]){
+                                $insumo->modificarInsumoPeri($id, $marca, $modelo, $descripcion, $id_centro, $id_departamento, $id_box);
+                                $historial->insertarHistorial($idd,$usuario, $id, $id_categoria, $id_centro, $id_departamento,$id_box);
+                            }else{
+
+                            }
+                        }
+                    break;
                     case $_POST["categoriass"] == 3 :
-                            $insumo->modificarInsumoPeri($id, $marca, $modelo, $descripcion, $id_centro, $id_departamento, $id_box);
-                            $historial->insertarHistorial($idd,$usuario, $id, $id_categoria, $id_centro, $id_departamento,$id_box);
+                        if(!isset($_POST["lista22"])){
+                            if(!isset($_POST["lista33"])){
+                                $insumo->modificarInsumoPeri($id, $marca, $modelo, $descripcion, $id_centro, $id_departamento, $id_box);
+                                $historial->insertarHistorial($idd,$usuario, $id, $id_categoria, $id_centro, $id_departamento,$id_box);
+                            }else{
+                                $insumo->modificarInsumoPeri($id, $marca, $modelo, $descripcion, $id_centro, $id_departamento, $id_box);
+                                $historial->insertarHistorial($idd,$usuario, $id, $id_categoria, $id_centro, $id_departamento,$id_box);
+                            }
+                        }
+                        if(isset($_POST["lista22"])){
+                            if($_POST["lista33"]){
+                                $insumo->modificarInsumoPeri($id, $marca, $modelo, $descripcion, $id_centro, $id_departamento, $id_box);
+                                $historial->insertarHistorial($idd,$usuario, $id, $id_categoria, $id_centro, $id_departamento,$id_box);
+                            }else{
+
+                            }
+                        }
                     break;
                     
                     case $_POST["categoriass"] == 4:
-                        $insumo->modificarInsumoPeri($id, $marca, $modelo, $descripcion, $id_centro, $id_departamento, $id_box);
-                        $historial->insertarHistorial($idd,$usuario, $id, $id_categoria, $id_centro, $id_departamento,$id_box);
+                        if(!isset($_POST["lista22"])){
+                            if(!isset($_POST["lista33"])){
+                                $insumo->modificarInsumoPeri($id, $marca, $modelo, $descripcion, $id_centro, $id_departamento, $id_box);
+                                $historial->insertarHistorial($idd,$usuario, $id, $id_categoria, $id_centro, $id_departamento,$id_box);
+                            }else{
+                                $insumo->modificarInsumoPeri($id, $marca, $modelo, $descripcion, $id_centro, $id_departamento, $id_box);
+                                $historial->insertarHistorial($idd,$usuario, $id, $id_categoria, $id_centro, $id_departamento,$id_box);
+                            }
+                        }
+                        if(isset($_POST["lista22"])){
+                            if($_POST["lista33"]){
+                                $insumo->modificarInsumoPeri($id, $marca, $modelo, $descripcion, $id_centro, $id_departamento, $id_box);
+                                $historial->insertarHistorial($idd,$usuario, $id, $id_categoria, $id_centro, $id_departamento,$id_box);
+                            }else{
+
+                            }
+                        }
                     break;
                     
                     case $_POST["categoriass"] == 5:
-                        $insumo->modificarInsumoPeri($id, $marca, $modelo, $descripcion, $id_centro, $id_departamento, $id_box);
-                        $historial->insertarHistorial($idd,$usuario, $id, $id_categoria, $id_centro, $id_departamento,$id_box);
+                        if(!isset($_POST["lista22"])){
+                            if(!isset($_POST["lista33"])){
+                                $insumo->modificarInsumoPeri($id, $marca, $modelo, $descripcion, $id_centro, $id_departamento, $id_box);
+                                $historial->insertarHistorial($idd,$usuario, $id, $id_categoria, $id_centro, $id_departamento,$id_box);
+                            }else{
+                                $insumo->modificarInsumoPeri($id, $marca, $modelo, $descripcion, $id_centro, $id_departamento, $id_box);
+                                $historial->insertarHistorial($idd,$usuario, $id, $id_categoria, $id_centro, $id_departamento,$id_box);
+                            }
+                        }
+                        if(isset($_POST["lista22"])){
+                            if($_POST["lista33"]){
+                                $insumo->modificarInsumoPeri($id, $marca, $modelo, $descripcion, $id_centro, $id_departamento, $id_box);
+                                $historial->insertarHistorial($idd,$usuario, $id, $id_categoria, $id_centro, $id_departamento,$id_box);
+                            }else{
+
+                            }
+                        }
                     break;
                     case $_POST["categoriass"] == 6 :
                         $insumo->modificarInsumoEncargado($id,$descripcion);

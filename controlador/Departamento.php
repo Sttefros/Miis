@@ -40,10 +40,15 @@ class DepartamentoController{
     public function actualizar(){
         $id = $_POST["id"];
         $nombre = $_POST["nombre"];
-        $centro = $_POST["centro"];
         $departamento = new Departamento_model();
-        $departamento->modificarDepartamento($id, $nombre, $centro);
+        $departamento->modificarDepartamento($id, $nombre);
 
+        $data["titulo"] = "Departamentos";
+        $this->index();
+    }
+    public function eliminar($id){
+        $departamento = new Departamento_model();
+        $departamento->eliminarDepartamento($id);
         $data["titulo"] = "Departamentos";
         $this->index();
     }

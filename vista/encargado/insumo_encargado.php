@@ -91,10 +91,10 @@
                         text:      '<img src="vista/assets/img/001-sobresalir.png" >',
                         header: true,
                         footer: true,
-                        title: "Insumos informaticos CORMU San Joaquin",
+                        title: "Insumos informaticos <?php echo $dato['ubicacion'];?>",
                         titleAttr: "Exportar a Excel",
                         exportOptions: {
-                            columns: [ 0, 1, 2, 3 ,4, 5, 6, 7,8]
+                            columns: [ 1, 2, 3 ,4, 5, 6, 7]
                         }
                     },
                     {
@@ -104,10 +104,10 @@
                         text:      '<img src="vista/assets/img/002-pdf.png" >',
                         header: true,
                         footer: true,
-                        title: "Insumos informaticos CORMU San Joaquin",
+                        title: "Insumos informaticos <?php echo $dato['ubicacion'];?>",
                         titleAttr: "Exportar a PDF",
                         exportOptions: {
-                            columns: [ 0, 1, 2, 3 ,4, 5, 6, 7,8]
+                            columns: [ 1, 2, 3 ,4, 5, 6, 7]
                         }
                     },
                     {

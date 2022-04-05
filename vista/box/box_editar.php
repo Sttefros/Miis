@@ -9,24 +9,14 @@
         <br><br>
         <input type="hidden" name="id" id="id" value="<?php echo $data["id"] ?>" />
 
+        <label>Centro al que pertenece: </label>
+        <input  value="<?php echo $data["box"]["centro"] ?>"  readonly/><br><br>
+        <label>Departamento: </label>
+        <input  value="<?php echo $data["box"]["departamento"] ?>" readonly/><br><br>
+
                     <label>Nombre del box: </label><input required type="text" id="nombre" name="nombre" value="<?php echo $data["box"]["nombre"] ?>" /><br><br>
                     
-            
-                    <label>Departamento: </label>
-                    <select name="departamento" id="categoriacss" required>
-                        <option value="<?php echo $data["box"]["id_departamento"]?>" selected  > <?php echo $data["box"]["departamento"]?> </option>
-                            <?php
-                                foreach($data["departamento"] as $dato){
-                                    if($dato['id_departamento'] ==  $data["box"]["id_departamento"]){
-                                        echo "<option hidden value=".$dato['id_departamento']."></option>";
-                                    }else{
-                                        echo "<option  value=".$dato['id_departamento'].">".$dato['nombre']."</option>";
-                                    }
-                                    
-
-                                }
-                            ?>
-                        </select>
+                    
                         <br><br><br><br><br><br>
                     <input type="submit" value="GUARDAR CAMBIOS"/>
             </form> 

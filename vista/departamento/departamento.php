@@ -38,7 +38,10 @@
                                 <?php 
                                     if(isset($_SESSION['administrador'])){
                                 ?>
-                                <td> <a  class='btn-edit' href='index.php?c=departamento&a=modificar&id=<?php echo $dato["id_departamento"]?>'><i class='bx bx-edit'></i> </td>
+                                <td> 
+                                    <a  href='index.php?c=departamento&a=modificar&id=<?php echo $dato["id_departamento"]?>'><button class='btn-edit' ><i class='bx bx-edit'></i> </button> </a>
+                                    <a  href='index.php?c=departamento&a=eliminar&id=<?php echo $dato["id_departamento"]?>' ><button class='btn-delete'><i class='bx bx-trash'></i></button> </a> 
+                                </td>
                                 <?php
                                     }
                                 ?>

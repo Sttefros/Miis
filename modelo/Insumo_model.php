@@ -225,17 +225,22 @@ Class Insumo_model{
         return $lasid;
         // $resulta = $this->db->query("INSERT INTO historial (id_historial,fecha_accion,usuario_entrega,id_insumo,categoria,centro,departamento,box) VALUE (null, CURDATE( ),'$usuario', '$lasid', '$id_categoria', '$id_centro', '$id_departamento','$id_box')");
     }
+    // -----------------------------------------MODIFICAR ESTADO DE UN INSUMO ---------------------------------------------------------------
     public function cambiarAsignadoInsumo($id){
         $resultado = $this->db->query("UPDATE insumo SET asignado = '1' WHERE id_insumo = '$id'");
     }
     public function cambiarAsignadoInsumolibre($id){
         $resultado = $this->db->query("UPDATE insumo SET asignado = '0' WHERE id_insumo = '$id'");
     }
+    // ------------------------------------------------------------------------------------------------------------------------------------------
     public function cambiarubicacion($id, $id_centro,$id_departamento,$id_box){
         $resultado = $this->db->query("UPDATE insumo SET id_centro = '$centro' id_departamento = '$departamento', id_box = 'id_box' WHERE id_insumo = '$id'");
     }
     public function modificarInsumo($id, $marca, $modelo, $descripcion){        
         $resultado = $this->db->query("UPDATE insumo SET  marca='$marca', modelo='$modelo', descripcion='$descripcion' WHERE id_insumo = $id");
+        if($resultado == true){?>
+            <script>alert("El insumo se actualizo");</script><?php
+        }
     }
     public function modificarInsumoPeri($id, $marca, $modelo, $descripcion,$id_centro,$id_departamento,$id_box){        
         $resultado = $this->db->query("UPDATE insumo SET  marca='$marca', modelo='$modelo', descripcion='$descripcion' ,id_centro = '$id_centro', id_departamento = '$id_departamento' , id_box = '$id_box' WHERE id_insumo = $id");
@@ -243,6 +248,45 @@ Class Insumo_model{
     public function modificarInsumoEncargado($id,$descripcion){
         $resultado = $this->db->query("UPDATE insumo SET   descripcion='$descripcion'  WHERE id_insumo = $id");
     }
+    public function updatearinsumoextracpu($serie){
+        $consulta = "SELECT i.*, e.id_categoria
+        FROM insumo i
+        INNER JOIN insumo e ON i.id_extras = e.id_insumo
+        WHERE i.num_serie = '$serie'
+        AND e.id_categoria = 6";
 
+        $resultado = $this->db->query($consulta);
+        $row = $resultado->fetch_assoc();
+        return $row;
+    }
+    public function actualizarextra($id, $idnueva){
+        $consulta = $this->db->query("UPDATE insumo SET id_extras ='$idnueva' WHERE id_insumo ='$id'");
+    }
+    public function updatearinsumoextraram($serie){
+        $consulta = "SELECT i.*, e.id_categoria
+        FROM insumo i
+        INNER JOIN insumo e ON i.id_extras = e.id_insumo
+        WHERE i.num_serie = '$serie'
+        AND e.id_categoria = 7";
+
+        $resultado = $this->db->query($consulta);
+        $row = $resultado->fetch_assoc();
+        return $row;
+        $consulta = $this->db->query("UPDATE insumo SET id_extras ='$id' WHERE id_insumo ='$ida'");
+    }
+    public function updatearinsumoextraalmacenamiento($serie){
+        $consulta = "SELECT i.*, e.id_categoria
+        FROM insumo i
+        INNER JOIN insumo e ON i.id_extras = e.id_insumo
+        WHERE i.num_serie = '$serie'
+        AND e.id_categoria = 8";
+
+        $resultado = $this->db->query($consulta);
+        $row = $resultado->fetch_assoc();
+        return $row;
+        
+        $consulta = $this->db->query("UPDATE insumo SET id_extras ='$id' WHERE id_insumo ='$ida'");
+       
+    }
 }
 ?>

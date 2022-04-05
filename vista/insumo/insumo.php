@@ -56,7 +56,10 @@
                                 <?php 
                                     if(isset($_SESSION['administrador'])){
                                 ?>
-                                <td> <a  class='btn-edit' href='index.php?c=insumo&a=modificar&id=<?php echo $dato["id_insumo"]?>'><i class='bx bx-edit'></i><a class='btn-delete' href='index.php?c=insumo&a=eliminar&id=<?php echo $dato["id_insumo"]?>' ><i class='bx bx-trash'></i></a> </td>
+                                <td>
+                                     <a   href='index.php?c=insumo&a=modificar&id=<?php echo $dato["id_insumo"]?>'><button class='btn-edit' ><i class='bx bx-edit'></i></button> </a>
+                                     <a href='index.php?c=insumo&a=eliminar&id=<?php echo $dato["id_insumo"]?>'><button class='btn-delete' ><i class='bx bx-trash'></i></button> </a> 
+                                    </td>
                                 <?php
                                     }
                                 ?>

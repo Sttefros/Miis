@@ -65,7 +65,7 @@ class Centro_model {
     }
     public function eliminarCentro($id){
         $consulta = "SELECT d.*,
-                            (SELECT COUNT(*)
+                         (SELECT COUNT(*)
                             FROM insumo
                             WHERE id_centro = $id ) AS 'dispositivos'
                         FROM centro d
@@ -74,9 +74,17 @@ class Centro_model {
         $resultado = $this->db->query($consulta);
         $row = $resultado->fetch_assoc();
         if($row['dispositivos'] > 0){
-            
+            $sql = false;
         }else{
-            $resultado = $this->db->query("DELETE FROM centro WHERE id_centro = $id");
+            $this->db->query('SET foreign_key_checks = 0');
+            $sql = $this->db->query("DELETE FROM centro WHERE id_centro = '$id'");
+            
+        }
+        $this->db->query('SET foreign_key_checks = 1');
+        if($sql == true){?>
+            <script>alert("Centro Eliminado");</script><?php
+        }else{?>
+            <script>alert("Centro no Eliminado, mantiene dispositivo vinculado.");</script><?php
         }
     }
 }

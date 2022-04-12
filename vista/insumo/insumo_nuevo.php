@@ -73,8 +73,17 @@
                             ?>
                         </select>
     <!-- --------------------------------------------RAM------------------------------------------------------------------------- -->
-                    <label >RAM:   </label>
+                    <label >RAM 1:   </label>
                         <select name="ram">
+                        <option  value="" selected  >     -- seleccione una ram -- </option>
+                        <?php 
+                            foreach($data["ram"] as $dato){
+                                echo "<option value=".$dato["id_insumo"].">".$dato["marca"]." ".$dato["num_serie"]."</option>";
+                            }
+                        ?>
+                        </select> 
+                        <label >RAM 2:   </label>
+                        <select name="ram2">
                         <option  value="" selected  >     -- seleccione una ram -- </option>
                         <?php 
                             foreach($data["ram"] as $dato){

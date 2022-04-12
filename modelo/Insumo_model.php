@@ -61,6 +61,18 @@ Class Insumo_model{
         }
         return $this->insumos;
     }
+    public function get_ram_serie($id){
+        $consulta = "SELECT i.id_extras, c.id_categoria AS 'idcateextra', h.nombre AS 'categoria', (SELECT marca FROM insumo WHERE id_insumo = i.id_extras ) AS 'marcaextra', (SELECT num_serie FROM insumo WHERE id_insumo = i.id_extras) AS 'numserieextra'
+                        FROM insumo i
+                        INNER JOIN insumo c ON i.id_extras = c.id_insumo
+                        INNER JOIN categoria h ON h.id_categoria = c.id_categoria
+                        WHERE i.num_serie ='$id' AND c.id_categoria = 7";
+        $resultado = $this->db->query($consulta);
+        while($row = $resultado->fetch_assoc()){
+            $this->insumos[] = $row;
+        }
+        return $this->insumos;
+    }
     public function get_insumos_encargado($id){
         $consulta = "SELECT i.*
                             ,c.nombre AS 'categoria'
@@ -234,12 +246,11 @@ Class Insumo_model{
     }
     // ------------------------------------------------------------------------------------------------------------------------------------------
     public function cambiarubicacion($id, $id_centro,$id_departamento,$id_box){
-        $resultado = $this->db->query("UPDATE insumo SET id_centro = '$centro' id_departamento = '$departamento', id_box = 'id_box' WHERE id_insumo = '$id'");
+        $resultado = $this->db->query("UPDATE insumo SET id_centro = '$id_centro' id_departamento = '$id_departamento', id_box = '$id_box' WHERE id_insumo = '$id'");
     }
     public function modificarInsumo($id, $marca, $modelo, $descripcion){        
         $resultado = $this->db->query("UPDATE insumo SET  marca='$marca', modelo='$modelo', descripcion='$descripcion' WHERE id_insumo = $id");
-        if($resultado == true){?>
-            <script>alert("El insumo se actualizo");</script><?php
+        if($resultado == true){
         }
     }
     public function modificarInsumoPeri($id, $marca, $modelo, $descripcion,$id_centro,$id_departamento,$id_box){        
@@ -262,11 +273,11 @@ Class Insumo_model{
     public function actualizarextra($id, $idnueva){
         $consulta = $this->db->query("UPDATE insumo SET id_extras ='$idnueva' WHERE id_insumo ='$id'");
     }
-    public function updatearinsumoextraram($serie){
+    public function updatearinsumoextraram($serie, $idrams){
         $consulta = "SELECT i.*, e.id_categoria
         FROM insumo i
         INNER JOIN insumo e ON i.id_extras = e.id_insumo
-        WHERE i.num_serie = '$serie'
+        WHERE i.num_serie = '$serie' AND i.id_extras = '$idrams'
         AND e.id_categoria = 7";
 
         $resultado = $this->db->query($consulta);
@@ -287,6 +298,26 @@ Class Insumo_model{
         
         $consulta = $this->db->query("UPDATE insumo SET id_extras ='$id' WHERE id_insumo ='$ida'");
        
+    }
+    public function darDeBajaInsumo($id){
+        $consulta = "SELECT * FROM insumo WHERE id_insumo = '$id'";
+        $resultado = $this->db->query($consulta);
+        $row = $resultado->fetch_assoc();
+        if($row['id_categoria'] == 6 || $row['id_categoria'] == 7 || $row['id_categoria'] == 8){
+            if($row['asignado'] == 0){
+                $sql = $this->db->query("UPDATE insumo SET estado = '1' WHERE id_insumo = '$id'");
+            }else{
+                $sql = false;
+            }
+        }else{
+            $sql = $this->db->query("UPDATE insumo SET estado = '1' WHERE id_insumo = '$id'");
+        }
+        if($sql == true){?>
+            <script>alert("Insumo dado de baja");</script><?php
+        }else{?>
+            <script>alert("Insumo no dado de baja");</script><?php
+        }
+        return $row;
     }
 }
 ?>

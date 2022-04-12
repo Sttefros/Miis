@@ -15,7 +15,6 @@
                             <th>Modelo</th>
                             <th>Serie</th>
                             <th>Descripcion</th>
-                            <th>Asignado</th>
                             <th>Estado</th>
                             <th>Ubicacion</th>
                             <th>Categoria</th>
@@ -39,12 +38,6 @@
                                 <td> <?php echo utf8_encode($dato['modelo']);?> </td>
                                 <td> <?php echo $dato['num_serie'];?> </td>
                                 <td> <?php echo utf8_encode($dato['descripcion']);?> </td>
-                                <td> <?php if($dato['asignado'] == 0){
-                                               echo "Si";
-                                            }else{
-                                                echo "No ";
-                                            }
-                                     ?> </td>
                                 <td> <?php if($dato['estado'] == 0){
                                                 echo "Activo";
                                             }else{
@@ -115,7 +108,7 @@
                         title: "Insumos informaticos CORMU San Joaquin",
                         titleAttr: "Exportar a Excel",
                         exportOptions: {
-                            columns: [ 0, 1, 2, 3 ,4, 5, 6, 7,8]
+                            columns: [ 0, 1, 2, 3 ,4, 5, 6, 7]
                         }
                     },
                     {
@@ -128,7 +121,7 @@
                         title: "Insumos informaticos CORMU San Joaquin",
                         titleAttr: "Exportar a PDF",
                         exportOptions: {
-                            columns: [ 0, 1, 2, 3 ,4, 5, 6, 7,8]
+                            columns: [ 0, 1, 2, 3 ,4, 5, 6, 7]
                         }
                     },
                     {

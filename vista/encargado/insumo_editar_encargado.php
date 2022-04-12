@@ -25,14 +25,15 @@
         <input type="hidden"  name="categoriass" value="<?php echo $data["insumo"]["id_categoria"] ?>" readonly/>
                 <div id="divselect">
                    
-
-                     
                     <input type="submit" id="btninsumo" name="btncrear" value="GUARDAR" style=" border-radius:5px"/>
                     <br>
-                    <?php if($data["insumo"]["id_categoria"] == 1 || $data["insumo"]["id_categoria"] == 2 || $data["insumo"]["id_categoria"] == 3 || $data["insumo"]["id_categoria"] == 4 || $data["insumo"]["id_categoria"] == 5 ){ ?>
+                    <?php if($data["insumo"]["id_categoria"] == 1 || $data["insumo"]["id_categoria"] == 2 || $data["insumo"]["id_categoria"] == 3 || $data["insumo"]["id_categoria"] == 4 || $data["insumo"]["id_categoria"] == 5 || $data["insumo"]["id_categoria"] == 9 || $data["insumo"]["id_categoria"] == 10 || $data["insumo"]["id_categoria"] == 11 ){ ?>
                             <label >UBICACION: </label>
+                            <input type="hidden"  name="ubicacionpervia" value="<?php echo utf8_encode($data["insumo"]["id_centro"]) ?>" readonly/>
+                            <input type="hidden"  name="departamentopervio" value="<?php echo utf8_encode($data["insumo"]["id_departamento"]) ?>" readonly/>
+                            <input type="hidden"  name="boxpervio" value="<?php echo utf8_encode($data["insumo"]["id_box"]) ?>" readonly/>
                         <!-- combobox para seleccionar el centro donde se quiere agregar un nuevo insumo -->
-                        <select style="visibility:hidden" name="lista1" id="lista1" required onChange="departament(this.value)"> 
+                        <select  name="lista1" id="lista1" required onChange="departament(this.value)"> 
                         <option  value="<?php echo $data["insumo"]["id_centro"]?>" selected  ><?php echo utf8_encode($data["insumo"]["ubicacion"])?></option>
                             <?php
                                 foreach($data["centro"] as $dato){

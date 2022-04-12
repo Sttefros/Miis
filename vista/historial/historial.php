@@ -36,7 +36,16 @@
                                 <td> <?php echo $dato['usuario'];?> </td>
                                 <td> <?php echo $dato['id_insumo'];?> </td>
                                 <td> <?php echo $dato['categoria'];?> </td>
-                                <td> <?php echo $dato['centro'];?> </td>
+                                
+                                    <?php if($dato['centro'] == '0'){ ?>
+                                        <td> 
+                                            de baja
+                                        </td>
+                                    <?php } ?>
+                                        <td> 
+                                            <?php echo $dato['centro'];?>    
+                                        </td>
+
                                 <td> <?php echo $dato['departamento'];?> </td>
                                 <td> <?php echo $dato['box'];?> </td>
                             </tr>

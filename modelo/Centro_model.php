@@ -38,8 +38,10 @@ class Centro_model {
     public function getIdCentro($id){
         $consulta = "SELECT * FROM centro WHERE id_usuario = '$id'";
         $resultado = $this->db->query($consulta);
-        $row = $resultado->fetch_assoc();
-        return $row;
+        while($row = $resultado->fetch_assoc()){
+            $this->centro[] = $row;
+        }
+        return $this->centro;
     }
     public function insertarCentro($id = null, $nombre, $direccion , $encargado){
         $validarNombre = "SELECT COUNT(nombre) AS 'nomb'

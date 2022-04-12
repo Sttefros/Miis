@@ -11,9 +11,9 @@
                         <tr>
                             <th>ID</th>
                             <th>Marca</th>
-                            <th>Modelo</th>
                             <th>Serie</th>
                             <th>Descripcion</th>
+                            <th>Centro</th>
                             <th>Departamento</th>
                             <th>Ubicacion</th>
                             <th>Categoria</th>
@@ -34,9 +34,9 @@
                             <tr>
                                 <td> <?php echo $dato['id_insumo'];?> </td>
                                 <td> <?php echo utf8_encode($dato['marca']);?> </td>
-                                <td> <?php echo utf8_encode( $dato['modelo']);?> </td>
                                 <td> <?php echo $dato['num_serie'];?> </td>
                                 <td> <?php echo utf8_encode( $dato['descripcion']);?> </td>
+                                <td> <?php echo utf8_encode( $dato['ubicacion']);?> </td>
                                 <td> <?php echo $dato['departamento'];?> </td>
                                 <td> <?php echo $dato['box'];?> </td>
                                 <td> <?php echo $dato['categoria'];?> </td>
@@ -91,7 +91,7 @@
                         text:      '<img src="vista/assets/img/001-sobresalir.png" >',
                         header: true,
                         footer: true,
-                        title: "Insumos informaticos <?php echo $dato['ubicacion'];?>",
+                        title: "Insumos informaticos San Joaquin",
                         titleAttr: "Exportar a Excel",
                         exportOptions: {
                             columns: [ 1, 2, 3 ,4, 5, 6, 7]
@@ -104,7 +104,7 @@
                         text:      '<img src="vista/assets/img/002-pdf.png" >',
                         header: true,
                         footer: true,
-                        title: "Insumos informaticos <?php echo $dato['ubicacion'];?>",
+                        title: "Insumos informaticos San Joaquin",
                         titleAttr: "Exportar a PDF",
                         exportOptions: {
                             columns: [ 1, 2, 3 ,4, 5, 6, 7]

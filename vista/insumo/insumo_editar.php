@@ -33,6 +33,10 @@
                 <input type="hidden"  name="idramantigua" value="<?php echo $ididram ?>" readonly/>
         <?php } ?>
         <?php 
+            if(isset($ididram2)){?>
+                <input type="hidden"  name="idramantigua2" value="<?php echo $ididram2 ?>" readonly/>
+        <?php } ?>
+        <?php 
             if(isset($ididalmacenamiento)){?>
                 <input type="hidden"  name="idalmacenamientoantiguo" value="<?php echo $ididalmacenamiento?>" readonly/>
         <?php } ?>
@@ -142,7 +146,7 @@
                             ?>
                         </select>
     <!-- --------------------------------------------RAM------------------------------------------------------------------------- -->     
-                        <label >RAM:   </label>
+                        <label >RAM 1:   </label>
                         <select name="ram">
                         <?php 
                         if(empty($idram)){
@@ -168,6 +172,32 @@
                         }
                         ?>
                         </select>       
+                        <label >RAM 2:   </label>
+                        <select name="ram2">
+                        <?php 
+                        if(empty($idram2)){
+                            echo "<option selected value=''>No asignada</option>";
+                            foreach($data["ram"] as $dato){
+                                if($dato['id_insumo'] ==  $ididram2){
+                                    echo "<option hidden value=".$ididram2."></option>";
+                                }else{
+                                    echo "<option value=".$dato["id_insumo"].">".$dato["marca"]." ".$dato["num_serie"]."</option>";
+                                }
+                               
+                            }
+                        }else{
+                            echo "<option selected value=".$ididram2.">".$marcaram2." ".$numserieram2."</option>";
+                            foreach($data["ram"] as $dato){
+                                if($dato['id_insumo'] ==  $ididram2){
+                                    echo "<option hidden value=".$ididram2."></option>";
+                                }else{
+                                    echo "<option value=".$dato["id_insumo"].">".$dato["marca"]." ".$dato["num_serie"]."</option>";
+                                }
+                               
+                            }
+                        }
+                        ?>
+                        </select>    
     <!-- -----------------------------------------ALMACENAMIENTO-------------------------------------------------------------------------------- -->
                         <label >Almacenamiento:   </label>
                         <select name="almacenamiento">

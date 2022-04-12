@@ -22,7 +22,7 @@ Class HistorialController{
         $centro = new Centro_model();
         $data["titulo"] = "Historial de movimientos";
         $centr = $centro->getIdCentro($_SESSION["encargado"]["id_usuario"]);
-        $data["historial"] = $historial->get_historial_encargado($centr["id_centro"]);
+        $data["historial"] = $historial->get_historial_encargado($_SESSION["encargado"]["id_usuario"]);
         require_once 'vista/historial/historial.php';
     }
 

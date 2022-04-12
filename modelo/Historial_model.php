@@ -46,7 +46,7 @@ Class Historial_model{
                     INNER JOIN departamento d ON d.id_departamento = h.departamento
                     INNER JOIN box b ON b.id_box = h.box
                     INNER JOIN categoria l ON i.id_categoria = l.id_categoria
-                    WHERE c.id_centro = '$id'";
+                    WHERE c.id_usuario = '$id'";
 
         $resultado = $this->db->query($consulta);
 

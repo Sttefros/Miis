@@ -129,7 +129,7 @@
                                     if($dato['id_insumo'] ==  $idcpu){
                                         echo "<option hidden value=".$ididcpu."></option>";
                                     }else{
-                                        echo "<option value=".$ididcpu["id_insumo"].">".$dato["marca"]." ".$dato["num_serie"]."</option>";
+                                        echo "<option value=".$dato["id_insumo"].">".$dato["marca"]." ".$dato["num_serie"]."</option>";
                                     }
                                    
                                 }
@@ -142,6 +142,7 @@
                                             echo "<option value=".$dato["id_insumo"].">".$dato["marca"]." ".$dato["num_serie"]."</option>";
                                        }
                                 }
+                                echo "<option value=''>Dejar slot libre</option>";
                             }
                             ?>
                         </select>
@@ -169,6 +170,7 @@
                                 }
                                
                             }
+                            echo "<option value=''>Dejar slot libre</option>";
                         }
                         ?>
                         </select>       
@@ -195,6 +197,7 @@
                                 }
                                
                             }
+                            echo "<option value=''>Dejar slot libre</option>";
                         }
                         ?>
                         </select>    
@@ -214,13 +217,14 @@
                             }
                         }else{
                             echo "<option selected value=".$ididalmacenamiento.">".$marcaalmacenamiento." ".$numseriealmacenamiento."</option>";
-                        foreach ($data["almacenamiento"] as $dato){
-                            if($dato['id_insumo'] ==  $ididalmacenamiento){
-                                echo "<option hidden value=".$dato["id_insumo"].">".$dato["marca"]." ".$dato["num_serie"]."</option>";
-                            }else{
-                                echo "<option value=".$dato["id_insumo"].">".$dato["marca"]." ".$dato["num_serie"]."</option>";
+                            foreach ($data["almacenamiento"] as $dato){
+                                if($dato['id_insumo'] ==  $ididalmacenamiento){
+                                    echo "<option hidden value=".$dato["id_insumo"].">".$dato["marca"]." ".$dato["num_serie"]."</option>";
+                                }else{
+                                    echo "<option value=".$dato["id_insumo"].">".$dato["marca"]." ".$dato["num_serie"]."</option>";
+                                }
                             }
-                        }
+                            echo "<option value=''>Dejar slot libre</option>";
                         }
                         ?>
                         </select>      

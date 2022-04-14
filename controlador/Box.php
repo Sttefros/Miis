@@ -22,7 +22,6 @@ class BoxController{
         $id = null;
         $nombre = $_POST["nombre"];
         $departamento = $_POST["lista22"];
-
         $box = new Box_model();
         $box->insertarBox($id, $nombre, $departamento);
 

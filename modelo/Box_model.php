@@ -28,12 +28,14 @@ require_once 'configuracion/conexion.php';
             $validacionNombre = "SELECT COUNT(nombre) AS 'nombreBox' FROM box WHERE nombre = '$nombre' AND id_departamento = '$departamento'";
             $resultado = $this->db->query($validacionNombre);
             $row = $resultado->fetch_assoc();
-
+            
             if($row['nombreBox'] > 0){?>
                 <script>alert("El box no pudo registrarse");</script><?php
-            }else{
+            }else if($departamento > 0){
                 $resultado = $this->db->query("INSERT INTO box  (id_box,nombre,id_departamento) VALUES (null, '$nombre', '$departamento')");?>
                 <script>alert("Box creado exitosamente");</script><?php
+            }else{?>
+                <script>alert("El box no pudo registrarse ingrese departamento");</script><?php
             }
         }
         public function obtener_box($box){

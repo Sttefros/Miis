@@ -11,7 +11,7 @@
                 <input  value="<?php echo utf8_encode($data["departamento"]["centro"]) ?>" readonly/>
                 
                 <br><br><br><br>
-                <label >Nombre del departamento: </label><input type="text" name="nombre" id="nombre" value="<?php echo $data["departamento"]["nombre"] ?>"/><br><br>
+                <label >Nombre del departamento: </label><input type="text" name="nombre" id="nombre" value="<?php echo $data["departamento"]["nombre"] ?>" required/><br><br>
                 <br><br><br><br><input type="submit" value="GUARDAR CAMBIOS"/>
         </form> 
 </div>

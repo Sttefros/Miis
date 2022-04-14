@@ -54,10 +54,10 @@ class Centro_model {
         $resultado1 = $this->db->query($validarDireccion);
         $row1 = $resultado1->fetch_assoc();
 
-        if($row['nomb'] > 0){
-            $_SESSION['error_registro'] = "¡Vaya!, este centro ya esta registrado 💔";
-        }elseif($row1['ubi'] > 0){
-            $_SESSION['error_registro'] = "¡Vaya!, esta direccion ya esta registrada 💔";
+        if($row['nomb'] > 0){?>
+            <script>alert("¡Vaya!, este centro ya esta registrado 💔");</script><?php
+        }elseif($row1['ubi'] > 0){?>
+            <script>alert("¡Vaya!, esta direccion ya esta registrada 💔");</script><?php
         }else{
             $resultado = $this->db->query("INSERT INTO centro (id_centro,nombre,direccion, id_usuario) VALUES (null, '$nombre','$direccion','$encargado')");
         }

@@ -14,7 +14,7 @@
 
         <br><br><label >RUT usuario: </label><input type="text" id="rut" name="rut" value="<?php echo $data["usuario"]["rut"] ?>" /><br><br>
                 <label >Password usuario: </label><input type="password"  id="password" name="password" value="<?php echo substr($data["usuario"]["password"],0,15) ?>" /><br><br>
-                <label >Password usuario: </label><input type="text" id="telefono" name="telefono" value="<?php echo $data["usuario"]["telefono"] ?>" /><br><br>
+                <label >Telefono usuario: </label><input type="text" id="telefono" name="telefono" value="<?php echo $data["usuario"]["telefono"] ?>" /><br><br>
                 <label >Correo usuario: </label><input type="text" id="correo" name="correo" value="<?php echo $data["usuario"]["correo"] ?>" /><br><br>
                 <label >Rol usuario: </label><select name="rol" id="categoriacss" required>
                         <option value="<?php echo $data["usuario"]["id_rol"]?>" selected  > <?php echo $data["usuario"]["rol"]?> </option>

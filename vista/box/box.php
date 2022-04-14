@@ -17,12 +17,12 @@
                         <tr>
                             <th>ID</th>
                             <th>Nombre</th>
-                            <th>direccion</th>
-                            <th> departamento </th>
+                            <th>Centro</th>
+                            <th>Departamento </th>
                             <?php 
                                     if(isset($_SESSION['administrador'])){
                                 ?>
-                                    <th >acciones</th>
+                                    <th >Acciones</th>
                             <?php
                                     }
                                 ?>

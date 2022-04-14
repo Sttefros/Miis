@@ -151,7 +151,6 @@ Class InsumoController{
     }
 
     public function modificar($id){
-       
         $insumo = new Insumo_model();
         $centro = new Centro_model();
         $departamento = new Departamento_model();
@@ -234,7 +233,7 @@ Class InsumoController{
         require_once 'vista/insumo/insumo_editar.php';
     }
     public function actualizar() {
-        // var_dump($_POST);die();
+        // var_dump($_POST);die(); 
         session_start();
         if(isset($_SESSION['administrador'])){
             $usuario = $_SESSION['administrador']['id_usuario'];
@@ -309,11 +308,17 @@ Class InsumoController{
 // ------------------------------------------------------------------------CPU-------------------------------------------------------------------------------------------
                         if(isset($_POST["idcpuantigua"])){
                             if($_POST["idcpuantigua"] != $_POST["procesador"]){
-                                $insumo->cambiarAsignadoInsumolibre($_POST["idcpuantigua"]);
-                                $insumo->cambiarAsignadoInsumo($_POST["procesador"]);
-    
-                                $data["xD"] = $insumo->updatearinsumoextracpu($_POST["serie"]);
-                                $insumo->actualizarextra($data["xD"]["id_insumo"],$_POST["procesador"] );
+                                if($_POST["procesador"] != ""){
+                                    $insumo->cambiarAsignadoInsumolibre($_POST["idcpuantigua"]);
+                                    $insumo->cambiarAsignadoInsumo($_POST["procesador"]);
+        
+                                    $data["xD"] = $insumo->updatearinsumoextracpu($_POST["serie"]);
+                                    $insumo->actualizarextra($data["xD"]["id_insumo"],$_POST["procesador"] );
+                                }else{
+                                    $insumo->cambiarAsignadoInsumolibre($_POST["idcpuantigua"]);
+                                    $data["xD"] = $insumo->updatearinsumoextracpu($_POST["serie"]);
+                                    $insumo->deleteinsumoextracpu($data["xD"]["id_insumo"]);
+                                }
                             }
                         }else if(isset($_POST["procesador"])){
                                 if($_POST["procesador"] != ""){
@@ -326,13 +331,17 @@ Class InsumoController{
                         if(isset($_POST["idramantigua"])){
                             if($_POST["idramantigua"] != $_POST["ram"]){
                                 if($_POST["idramantigua"] != $_POST["ram2"]){
-                                    $insumo->cambiarAsignadoInsumolibre($_POST["idramantigua"]);
-                                    $insumo->cambiarAsignadoInsumo($_POST["ram"]);
-                                    
-                                    $data["xD"] = $insumo->updatearinsumoextraram($_POST["serie"],$_POST["idramantigua"]);
-                                    
-                                    if(isset($data["xD"])){
-                                        $insumo->actualizarextra($data["xD"]["id_insumo"],$_POST["ram"] );
+                                    if($_POST["ram"] != ""){
+                                        $insumo->cambiarAsignadoInsumolibre($_POST["idramantigua"]);
+                                        $insumo->cambiarAsignadoInsumo($_POST["ram"]);
+                                        
+                                        $data["xD"] = $insumo->updatearinsumoextraram($_POST["serie"],$_POST["idramantigua"]); 
+                                        $insumo->actualizarextra($data["xD"]["id_insumo"],$_POST["ram"] ); 
+                                    }else{
+                                        $insumo->cambiarAsignadoInsumolibre($_POST["idramantigua"]);
+                                        $data["xD"] = $insumo->updatearinsumoextraram($_POST["serie"],$_POST["idramantigua"]);
+                                       
+                                        $insumo->deleteinsumoextracpu($data["xD"]["id_insumo"]);
                                     }
                                 }
                             }
@@ -348,10 +357,17 @@ Class InsumoController{
                         if(isset($_POST["idramantigua2"])){
                             if($_POST["idramantigua2"] != $_POST["ram2"]){
                                 if($_POST["idramantigua2"] != $_POST["ram"]){
-                                    $insumo->cambiarAsignadoInsumolibre($_POST["idramantigua2"]);
-                                    $insumo->cambiarAsignadoInsumo($_POST["ram2"]);
-                                    
-                                    $data["xD"] = $insumo->updatearinsumoextraram($_POST["serie"],$_POST["idramantigua2"]);
+                                    if($_POST["ram2"] != ""){
+                                        $insumo->cambiarAsignadoInsumolibre($_POST["idramantigua2"]);
+                                        $insumo->cambiarAsignadoInsumo($_POST["ram2"]);
+                                        
+                                        $data["xD"] = $insumo->updatearinsumoextraram($_POST["serie"],$_POST["idramantigua2"]); 
+                                        $insumo->actualizarextra($data["xD"]["id_insumo"],$_POST["ram2"] ); 
+                                    }else{
+                                        $insumo->cambiarAsignadoInsumolibre($_POST["idramantigua2"]);
+                                        $data["xD"] = $insumo->updatearinsumoextraram($_POST["serie"],$_POST["idramantigua2"]);
+                                        $insumo->deleteinsumoextracpu($data["xD"]["id_insumo"]);
+                                    }
                                     if(isset($data["xD"])){
                                         $insumo->actualizarextra($data["xD"]["id_insumo"],$_POST["ram2"] );
                                     }
@@ -359,21 +375,28 @@ Class InsumoController{
 
                             }
                         }else if(isset($_POST["ram2"])){
-                            if($_POST["ram2"] != ""){
-                                if($_POST["ram2"] != $_POST["ram"]){
-                                    $insumo->insertarInsumo($id,$marca,$modelo,$serie,$descripcion,$asignado,$estado,$id_centro,$id_departamento, $id_box, $id_categoria,$ram2,$usuario);
-                                    $insumo->cambiarAsignadoInsumo($ram2);
-                                } 
-                            }
+                                if($_POST["ram2"] != ""){
+                                    if($_POST["ram2"] != $_POST["ram"]){
+                                        $insumo->insertarInsumo($id,$marca,$modelo,$serie,$descripcion,$asignado,$estado,$id_centro,$id_departamento, $id_box, $id_categoria,$ram2,$usuario);
+                                        $insumo->cambiarAsignadoInsumo($ram2);
+                                    } 
+                                }
                         }
 // ------------------------------------------------------------------------ALMACENAMIENTO---------------------------------------------------------------------------------
                         if(isset($_POST["idalmacenamientoantiguo"])){
                             if($_POST["idalmacenamientoantiguo"] != $_POST["almacenamiento"]){
-                                $insumo->cambiarAsignadoInsumolibre($_POST["idalmacenamientoantiguo"]);
-                                $insumo->cambiarAsignadoInsumo($_POST["almacenamiento"]);
-    
-                                $data["xD"] = $insumo->updatearinsumoextraalmacenamiento($_POST["serie"]);
-                                $insumo->actualizarextra($data["xD"]["id_insumo"],$_POST["almacenamiento"] );
+                                if($_POST["almacenamiento"] != ""){
+                                    $insumo->cambiarAsignadoInsumolibre($_POST["idalmacenamientoantiguo"]);
+                                    $insumo->cambiarAsignadoInsumo($_POST["almacenamiento"]);
+        
+                                    $data["xD"] = $insumo->updatearinsumoextraalmacenamiento($_POST["serie"]);
+                                    $insumo->actualizarextra($data["xD"]["id_insumo"],$_POST["almacenamiento"] );
+                                }else{
+                                    $insumo->cambiarAsignadoInsumolibre($_POST["idalmacenamientoantiguo"]);
+                                    $data["xD"] = $insumo->updatearinsumoextraalmacenamiento($_POST["serie"]);
+                                    $insumo->deleteinsumoextracpu($data["xD"]["id_insumo"]);
+                                }
+                               
                             }
                         }else if(isset($_POST["almacenamiento"])){
                                 if($_POST["almacenamiento"] != ""){
@@ -388,11 +411,17 @@ Class InsumoController{
 // ------------------------------------------------------------------------CPU-------------------------------------------------------------------------------------------
                     if(isset($_POST["idcpuantigua"])){
                         if($_POST["idcpuantigua"] != $_POST["procesador"]){
-                            $insumo->cambiarAsignadoInsumolibre($_POST["idcpuantigua"]);
-                            $insumo->cambiarAsignadoInsumo($_POST["procesador"]);
+                            if($_POST["procesador"] != ""){
+                                $insumo->cambiarAsignadoInsumolibre($_POST["idcpuantigua"]);
+                                $insumo->cambiarAsignadoInsumo($_POST["procesador"]);
 
-                            $data["xD"] = $insumo->updatearinsumoextracpu($_POST["serie"]);
-                            $insumo->actualizarextra($data["xD"]["id_insumo"],$_POST["procesador"] );
+                                $data["xD"] = $insumo->updatearinsumoextracpu($_POST["serie"]);
+                                $insumo->actualizarextra($data["xD"]["id_insumo"],$_POST["procesador"] );
+                            }else{
+                                $insumo->cambiarAsignadoInsumolibre($_POST["idcpuantigua"]);
+                                $data["xD"] = $insumo->updatearinsumoextracpu($_POST["serie"]);
+                                $insumo->deleteinsumoextracpu($data["xD"]["id_insumo"]);
+                            }
                         }
                     }else if(isset($_POST["procesador"])){
                             if($_POST["procesador"] != ""){
@@ -405,13 +434,17 @@ Class InsumoController{
                     if(isset($_POST["idramantigua"])){
                         if($_POST["idramantigua"] != $_POST["ram"]){
                             if($_POST["idramantigua"] != $_POST["ram2"]){
-                                $insumo->cambiarAsignadoInsumolibre($_POST["idramantigua"]);
-                                $insumo->cambiarAsignadoInsumo($_POST["ram"]);
+                                if($_POST["ram"] != ""){
+                                    $insumo->cambiarAsignadoInsumolibre($_POST["idramantigua"]);
+                                    $insumo->cambiarAsignadoInsumo($_POST["ram"]);
+                                    
+                                    $data["xD"] = $insumo->updatearinsumoextraram($_POST["serie"],$_POST["idramantigua"]); 
+                                    $insumo->actualizarextra($data["xD"]["id_insumo"],$_POST["ram"] ); 
+                                }else{
+                                    $insumo->cambiarAsignadoInsumolibre($_POST["idramantigua"]);
+                                    $data["xD"] = $insumo->updatearinsumoextraram($_POST["serie"],$_POST["idramantigua"]);
                                 
-                                $data["xD"] = $insumo->updatearinsumoextraram($_POST["serie"],$_POST["idramantigua"]);
-                                
-                                if(isset($data["xD"])){
-                                    $insumo->actualizarextra($data["xD"]["id_insumo"],$_POST["ram"] );
+                                    $insumo->deleteinsumoextracpu($data["xD"]["id_insumo"]);
                                 }
                             }
                         }
@@ -427,10 +460,17 @@ Class InsumoController{
                     if(isset($_POST["idramantigua2"])){
                         if($_POST["idramantigua2"] != $_POST["ram2"]){
                             if($_POST["idramantigua2"] != $_POST["ram"]){
-                                $insumo->cambiarAsignadoInsumolibre($_POST["idramantigua2"]);
-                                $insumo->cambiarAsignadoInsumo($_POST["ram2"]);
-                                
-                                $data["xD"] = $insumo->updatearinsumoextraram($_POST["serie"],$_POST["idramantigua2"]);
+                                if($_POST["ram2"] != ""){
+                                    $insumo->cambiarAsignadoInsumolibre($_POST["idramantigua2"]);
+                                    $insumo->cambiarAsignadoInsumo($_POST["ram2"]);
+                                    
+                                    $data["xD"] = $insumo->updatearinsumoextraram($_POST["serie"],$_POST["idramantigua2"]); 
+                                    $insumo->actualizarextra($data["xD"]["id_insumo"],$_POST["ram2"] ); 
+                                }else{
+                                    $insumo->cambiarAsignadoInsumolibre($_POST["idramantigua2"]);
+                                    $data["xD"] = $insumo->updatearinsumoextraram($_POST["serie"],$_POST["idramantigua2"]);
+                                    $insumo->deleteinsumoextracpu($data["xD"]["id_insumo"]);
+                                }
                                 if(isset($data["xD"])){
                                     $insumo->actualizarextra($data["xD"]["id_insumo"],$_POST["ram2"] );
                                 }
@@ -438,22 +478,29 @@ Class InsumoController{
 
                         }
                     }else if(isset($_POST["ram2"])){
-                        if($_POST["ram2"] != ""){
-                            if($_POST["ram2"] != $_POST["ram"]){
-                                $insumo->insertarInsumo($id,$marca,$modelo,$serie,$descripcion,$asignado,$estado,$id_centro,$id_departamento, $id_box, $id_categoria,$ram2,$usuario);
-                                $insumo->cambiarAsignadoInsumo($ram2);
-                            } 
-                        }
+                            if($_POST["ram2"] != ""){
+                                if($_POST["ram2"] != $_POST["ram"]){
+                                    $insumo->insertarInsumo($id,$marca,$modelo,$serie,$descripcion,$asignado,$estado,$id_centro,$id_departamento, $id_box, $id_categoria,$ram2,$usuario);
+                                    $insumo->cambiarAsignadoInsumo($ram2);
+                                } 
+                            }
                     }
 
 // ------------------------------------------------------------------------ALMACENAMIENTO---------------------------------------------------------------------------------
                     if(isset($_POST["idalmacenamientoantiguo"])){
                         if($_POST["idalmacenamientoantiguo"] != $_POST["almacenamiento"]){
-                            $insumo->cambiarAsignadoInsumolibre($_POST["idalmacenamientoantiguo"]);
-                            $insumo->cambiarAsignadoInsumo($_POST["almacenamiento"]);
+                            if($_POST["almacenamiento"] != ""){
+                                $insumo->cambiarAsignadoInsumolibre($_POST["idalmacenamientoantiguo"]);
+                                $insumo->cambiarAsignadoInsumo($_POST["almacenamiento"]);
 
-                            $data["xD"] = $insumo->updatearinsumoextraalmacenamiento($_POST["serie"]);
-                            $insumo->actualizarextra($data["xD"]["id_insumo"],$_POST["almacenamiento"] );
+                                $data["xD"] = $insumo->updatearinsumoextraalmacenamiento($_POST["serie"]);
+                                $insumo->actualizarextra($data["xD"]["id_insumo"],$_POST["almacenamiento"] );
+                            }else{
+                                $insumo->cambiarAsignadoInsumolibre($_POST["idalmacenamientoantiguo"]);
+                                $data["xD"] = $insumo->updatearinsumoextraalmacenamiento($_POST["serie"]);
+                                $insumo->deleteinsumoextracpu($data["xD"]["id_insumo"]);
+                            }
+                        
                         }
                     }else if(isset($_POST["almacenamiento"])){
                             if($_POST["almacenamiento"] != ""){

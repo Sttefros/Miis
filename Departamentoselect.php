@@ -5,7 +5,7 @@
     $idcentro = $_POST['idcentro'];
     $consulta = $departamento->listar_combo_departamento($idcentro);
     
-    $cadena = "<select required id='lista22' name='lista22'  onchange='listar_combo_box(this.value)'>";
+    $cadena = "<label >Seleccione departamento: </label><select id='lista22' name='lista22'  onchange='listar_combo_box(this.value)' required>";
     
     if($idcentro == 0){
         $cadena= $cadena.'<option value="0">No existen box</option>';

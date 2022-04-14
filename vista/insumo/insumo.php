@@ -12,9 +12,9 @@
                         <tr>
                             <th>ID</th>
                             <th>Marca</th>
-                            <th>Modelo</th>
                             <th>Serie</th>
                             <th>Descripcion</th>
+                            <th>Recurso</th>
                             <th>Estado</th>
                             <th>Ubicacion</th>
                             <th>Categoria</th>
@@ -35,9 +35,14 @@
                             <tr>
                                 <td> <?php echo $dato['id_insumo'];?> </td>
                                 <td> <?php echo utf8_encode($dato['marca']);?> </td>
-                                <td> <?php echo utf8_encode($dato['modelo']);?> </td>
                                 <td> <?php echo $dato['num_serie'];?> </td>
                                 <td> <?php echo utf8_encode($dato['descripcion']);?> </td>
+                                <td> <?php if($dato['asignado'] == 0){
+                                                echo "Disponible";
+                                            }else{
+                                                echo "Asignado";
+                                            }  
+                                     ?> </td>
                                 <td> <?php if($dato['estado'] == 0){
                                                 echo "Activo";
                                             }else{

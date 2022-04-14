@@ -27,10 +27,13 @@ class UsuarioController{
         $telefono = $_POST["telefono"];
         $rol = $_POST["rol"];
         $password_segura = password_hash($password,PASSWORD_BCRYPT,['cost'=>4]); //VERIFICAR PASS
- 
-        $usuarios = new Usuario_model();
-        $usuarios->insertarUsuarios($id, $rut, $correo, $telefono, $password_segura,$rol);
 
+        $rut = str_replace('.', '', $rut);
+        $rut = str_replace('-', '', $rut);
+        
+            $usuarios = new Usuario_model();
+            $usuarios->insertarUsuarios($id, $rut, $correo, $telefono, $password_segura,$rol);
+       
         $data["titulo"] = "usuario";
         $this->index();
     }

@@ -7,19 +7,19 @@
     if(isset( $_SESSION['administrador'])){
       ?>
       <h4>Hola,
-        <?php echo $_SESSION['administrador']['correo']?>
+      <?=  substr($_SESSION['administrador']['correo'], 0, 20)."...."?>
       </h4>
     <?php
     }else if(isset($_SESSION['sololectura'])){
       ?>
       <h4>Hola,
-        <?php echo $_SESSION['sololectura']['correo']?>
+      <?=  substr($_SESSION['sololectura']['correo'], 0, 20)."...."?>
       </h4>
     <?php
     }else if(isset($_SESSION['encargado'])){
       ?>
       <h4>Hola,
-        <?php echo $_SESSION['encargado']['correo']?>
+        <?=  substr($_SESSION['encargado']['correo'], 0, 20)."...."?>
       </h4>
     <?php
     }

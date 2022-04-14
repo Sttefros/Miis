@@ -270,6 +270,9 @@ Class Insumo_model{
         $row = $resultado->fetch_assoc();
         return $row;
     }
+    public function deleteinsumoextracpu($id){
+        $sql = $this->db->query("DELETE FROM insumo WHERE id_insumo = '$id'");
+    }
     public function actualizarextra($id, $idnueva){
         $consulta = $this->db->query("UPDATE insumo SET id_extras ='$idnueva' WHERE id_insumo ='$id'");
     }
@@ -283,7 +286,7 @@ Class Insumo_model{
         $resultado = $this->db->query($consulta);
         $row = $resultado->fetch_assoc();
         return $row;
-        $consulta = $this->db->query("UPDATE insumo SET id_extras ='$id' WHERE id_insumo ='$ida'");
+        // $consulta = $this->db->query("UPDATE insumo SET id_extras ='$id' WHERE id_insumo ='$ida'");
     }
     public function updatearinsumoextraalmacenamiento($serie){
         $consulta = "SELECT i.*, e.id_categoria
@@ -296,7 +299,7 @@ Class Insumo_model{
         $row = $resultado->fetch_assoc();
         return $row;
         
-        $consulta = $this->db->query("UPDATE insumo SET id_extras ='$id' WHERE id_insumo ='$ida'");
+        // $consulta = $this->db->query("UPDATE insumo SET id_extras ='$id' WHERE id_insumo ='$ida'");
        
     }
     public function darDeBajaInsumo($id){

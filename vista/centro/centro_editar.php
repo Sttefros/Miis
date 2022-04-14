@@ -12,9 +12,9 @@
     <form action="index.php?c=centro&a=actualizar" method="POST" autocomplete="off">
     <br><br><br><br><input type="hidden" name="id" id="id" value="<?php echo $data["id"] ?>" />
             <label >NOMBRE: </label>
-            <input type="text" id="nombre" name="nombre" value="<?php echo $data["centro"]["nombre"] ?>" /><br><br>
+            <input type="text" required id="nombre" name="nombre" value="<?php echo $data["centro"]["nombre"] ?>" /><br><br>
             <label >DIRECCION: </label>
-            <input type="text" id="direccion" name="direccion" value="<?php echo $data["centro"]["direccion"] ?>" /><br><br>
+            <input type="text" required id="direccion" name="direccion" value="<?php echo $data["centro"]["direccion"] ?>" /><br><br>
             <label >ENCARGADO: </label>
              <!-- SELECT QUE CARGA LOS USUARIOS ENCARGADOS Y ADMINISTRADOR NO ASI LOS SOLOREAD -->
             <select name="encargado" id="categoriacss" required>

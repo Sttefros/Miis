@@ -17,14 +17,14 @@
                     <thead class="thead-dark">
                         <tr>
                             <th>ID</th>
-                            <th>correo</th>
-                            <th>rut</th>
-                            <th> telefono </th>
-                            <th>rol</th>
+                            <th>Correo</th>
+                            <th>Rut</th>
+                            <th>Telefono </th>
+                            <th>Rol</th>
                             <?php 
                                     if(isset($_SESSION['administrador'])){
                                 ?>
-                                    <th >acciones</th>
+                                    <th >Acciones</th>
                             <?php
                                     }
                                 ?>
@@ -70,6 +70,8 @@
             });
 
     var a = $('#table_user').dataTable({
+        "responsive": "true",
+        "autoheight":"true",
         "scrollY":        "265px",
         "scrollCollapse": true,
         // "paging":         false,

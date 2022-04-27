@@ -1011,7 +1011,7 @@ Class InsumoController{
         require_once 'vista/encargado/insumo_editar_encargado.php';
     }
     public function actualizarEncargado() {
-        var_dump($_POST);die();
+        // var_dump($_POST);die();
         session_start();
         if(isset($_SESSION['encargado'])){
             $usuario = $_SESSION['encargado']['id_usuario'];
@@ -1079,8 +1079,8 @@ Class InsumoController{
                     break;
 // -------------------------------------------------------------------CATEGORIA NOTEBOOK-------------------------------------------------------------------------------------------
                     case $_POST["categoriass"] == 2 :
-                        if(!isset($_POST["lista22"])){
-                            if(!isset($_POST["lista33"])){
+                        if(isset($_POST["lista22"])){
+                            if(isset($_POST["lista33"])){
                                 $insumo->modificarInsumoPeri($id, $marca, $modelo, $descripcion, $id_centro, $id_departamento, $id_box);
                                 $historial->insertarHistorial($idd,$usuario, $id, $id_categoria, $id_centro, $id_departamento,$id_box);
                             }else{

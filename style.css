@@ -1,8 +1,8 @@
 /*-- contenedor del Login--*/
 .wrap-login {
-  display: flex;
-  transform: translate(450px, 100px);
   width: 400px;
+  margin: 0 auto;
+  margin-top: 5%;
   background: #eceff1;
   border-radius: 20px;
   overflow: hidden;
@@ -272,6 +272,9 @@ body {
   background-color: rgba(0, 0, 0, 0.2);
   box-shadow: 0px 0px 1px rgba(0,0,0,0.3), 0px 3px 7px rgba(0,0,0,0.3), 0px 0px 1px #FFFFFF inset, 0px -3px 2px rgba(0,0,0,0.25) inset;
 }
+#divinsumonuevo{
+  margin-left: 40px;
+}
 .container label{
   width: 120px;
 }
@@ -371,7 +374,7 @@ textarea {
 }
 #divselect{
   position: fixed;
-  right: 450px;
+  right: 400px;
   top : 100px!important;
 }
 /* select categoria insumo */
@@ -390,7 +393,7 @@ textarea {
 #contenidooculti{
   position: fixed;
   display: inline-block;
-  right: 160px;
+  right: 130px;
   top : 120px;
 }
 #contenidooculti2{
@@ -429,30 +432,170 @@ select{
 #table_insumo_filter input{
   position: fixed;
   display: block;
-  left: 1030px;
+  right: 60px;
 }
 #table_centro_filter input{
   position: fixed;
   display: block;
-  left: 1030px;
+  right: 60px;
 }
 #table_departamento_filter input{
   position: fixed;
   display: block;
-  left: 1030px;
+  right: 60px;
 }
 #table_box_filter input{
   position: fixed;
   display: block;
-  left: 1030px;
+  right: 60px;
 }
 #table_user_filter input{
   position: fixed;
   display: block;
-  left: 1030px;
+  right: 60px;
 }
 #table_historial_filter input{
   position: fixed;
   display: block;
-  left: 1030px;
+  right: 60px;
+}
+#almacenamiento {
+  max-width:200px;
+  min-width: 200px;
+}
+
+#almacenamiento > option {
+  max-width:150px;
+  background: #000;
+  color: #fff;
+}
+
+#almacenamiento > option:hover {
+  background:red;
+}
+#procesador {
+  max-width:200px;
+  min-width: 200px;
+}
+
+#procesador > option {
+  max-width:150px;
+  background: #000;
+  color: #fff;
+}
+
+#procesador > option:hover {
+  background:red;
+}
+#ram {
+  max-width:200px;
+  min-width: 200px;
+}
+
+#ram > option {
+  max-width:150px;
+  background: #000;
+  color: #fff;
+}
+
+#ram > option:hover {
+  background:red;
+}
+#ram2 {
+  max-width:200px;
+  min-width: 200px;
+}
+
+#ram2 > option {
+  max-width:150px;
+  background: #000;
+  color: #fff;
+}
+
+#ram2 > option:hover {
+  background:red;
+}
+#fuente {
+  max-width:200px;
+  min-width: 200px;
+}
+
+#fuente > option {
+  max-width:150px;
+  background: #000;
+  color: #fff;
+}
+
+#fuente > option:hover {
+  background:red;
+}
+#lista1 {
+  max-width:200px;
+  min-width: 200px;
+}
+
+#lista1 > option {
+  max-width:150px;
+  background: #000;
+  color: #fff;
+}
+
+#lista1 > option:hover {
+  background:red;
+}
+#lista2 {
+  max-width:200px;
+  min-width: 200px;
+}
+
+#lista2 > option {
+  max-width:150px;
+  background: #000;
+  color: #fff;
+}
+
+#lista2 > option:hover {
+  background:red;
+}
+#lista3 {
+  max-width:200px;
+  min-width: 200px;
+}
+
+#lista3 > option {
+  max-width:150px;
+  background: #000;
+  color: #fff;
+}
+
+#lista3 > option:hover {
+  background:red;
+}
+#lista22 {
+  max-width:200px;
+  min-width: 200px;
+}
+
+#lista22 > option {
+  max-width:150px;
+  background: #000;
+  color: #fff;
+}
+
+#lista22 > option:hover {
+  background:red;
+}
+#lista33 {
+  max-width:200px;
+  min-width: 200px;
+}
+
+#lista33 > option {
+  max-width:150px;
+  background: #000;
+  color: #fff;
+}
+
+#lista33 > option:hover {
+  background:red;
 }

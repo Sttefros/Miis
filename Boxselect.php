@@ -3,7 +3,7 @@
     $box = new Box_model();
     $iddepartamento = $_POST['iddepartamento'];
     $consulta = $box->listar_combo_box($iddepartamento);
-    $cadena = "<select id='lista33' name='lista33'>";
+    $cadena = "<label >Seleccione box: </label><select id='lista33' name='lista33' required>";
 
         if($iddepartamento == 0){
             $cadena= $cadena.'<option value="">No existen box</option>';

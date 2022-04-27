@@ -1,3 +1,20 @@
+<?php 
+    if(!isset($_SESSION)){
+        session_start();
+    }
+    
+ if(!isset($_SESSION['administrador'])){
+    if(!isset($_SESSION['encargado'])){
+        if(!isset($_SESSION['sololectura'])){
+            header('Location: http://localhost/miis/');
+        }
+    }
+ }
+ if(time() - $_SESSION['time'] > 1200) {
+    header('Location: http://localhost/miis/');
+ }
+?>
+
 <?php require_once 'C:/wamp64/www/miis/vista/includes/cabecera.php'?>
 <?php require_once 'C:/wamp64/www/miis/vista/includes/lateral.php'?>
 <!-- CAJA PRINCIPAL -->
@@ -12,12 +29,12 @@
                         <tr>
                             <th>ID</th>
                             <th>Marca</th>
-                            <th>Serie</th>
                             <th>Descripcion</th>
                             <th>Recurso</th>
                             <th>Estado</th>
                             <th>Ubicacion</th>
                             <th>Categoria</th>
+                            <th>Fecha</th>
                             <?php 
                                     if(isset($_SESSION['administrador'])){
                                 ?>
@@ -35,10 +52,13 @@
                             <tr>
                                 <td> <?php echo $dato['id_insumo'];?> </td>
                                 <td> <?php echo utf8_encode($dato['marca']);?> </td>
-                                <td> <?php echo $dato['num_serie'];?> </td>
                                 <td> <?php echo utf8_encode($dato['descripcion']);?> </td>
                                 <td> <?php if($dato['asignado'] == 0){
-                                                echo "Disponible";
+                                                if($dato['estado'] == 0){
+                                                    echo "Disponible";
+                                                }else{
+                                                    echo "Dado de Baja";
+                                                }
                                             }else{
                                                 echo "Asignado";
                                             }  
@@ -51,12 +71,13 @@
                                      ?> </td>
                                 <td> <?php echo utf8_encode($dato['ubicacion']);?> </td>
                                 <td> <?php echo $dato['categoria'];?> </td>
+                                <td> <?php echo $dato['fecha'];?> </td>
                                 <?php 
                                     if(isset($_SESSION['administrador'])){
                                 ?>
                                 <td>
-                                     <a   href='index.php?c=insumo&a=modificar&id=<?php echo $dato["id_insumo"]?>'><button class='btn-edit' ><i class='bx bx-edit'></i></button> </a>
-                                     <a href='index.php?c=insumo&a=eliminar&id=<?php echo $dato["id_insumo"]?>'><button class='btn-delete' ><i class='bx bx-trash'></i></button> </a> 
+                                     <a   href='index.php?c=insumo&a=modificar&id=<?php echo $dato["id_insumo"]?>'><button class='btn-edit' onClick='return alerta_editar_insumo(<?php echo $dato["id_insumo"]?>,<?php echo $dato["estado"]?>)' ><i class='bx bx-edit'></i></button> </a>
+                                     <a href='index.php?c=insumo&a=eliminar&id=<?php echo $dato["id_insumo"]?>'><button class='btn-delete' onClick='return alerta_eliminar_insumo(<?php echo $dato["id_insumo"]?>,<?php echo $dato["estado"]?>)' ><i class='bx bx-trash'></i></button> </a> 
                                     </td>
                                 <?php
                                     }
@@ -77,9 +98,10 @@
         } );
 
     var a = $('#table_insumo').dataTable({
-        "scrollY":        "265px",
+        "scrollY":        '45vh',
+        // "scrollY":        "265px",
         "scrollCollapse": true,
-        // "paging":         false,
+        //"paging":         false,
             "language": {
                 "sProcessing": "Procesando...",
                 "sZeroRecords": "No se encontraron resultados",

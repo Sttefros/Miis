@@ -1,3 +1,19 @@
+<?php 
+    if(!isset($_SESSION)){
+        session_start();
+    }
+    
+ if(!isset($_SESSION['administrador'])){
+    if(!isset($_SESSION['encargado'])){
+        if(!isset($_SESSION['sololectura'])){
+            header('Location: http://localhost/miis/');
+        }
+    }
+ }
+ if(time() - $_SESSION['time'] > 1200) {
+    header('Location: http://localhost/miis/');
+ }
+?>
 <!-- INCLUIR ARCHIVO CABECERA.PHP -->
 <?php require_once 'C:/wamp64/www/miis/vista/includes/cabecera.php'?>
 <!-- INCLUIR ARCHIVO LATERAL.PHP -->
@@ -19,14 +35,17 @@
                 <label >Rol usuario: </label><select name="rol" id="categoriacss" required>
                         <option value="<?php echo $data["usuario"]["id_rol"]?>" selected  > <?php echo $data["usuario"]["rol"]?> </option>
                             <?php
-                                foreach($data["rol"] as $dato){
-                                    if($dato['id_rol'] ==  $data["usuario"]["id_rol"]){
-                                        echo "<option hidden value=".$dato['id_rol']."></option>";
-                                    }else{
-                                        echo "<option  value=".$dato['id_rol'].">".$dato['nombre_rol']."</option>";
+                                if($data["usuario"]["id_rol"] == 4){
+                                }else{
+                                    foreach($data["rol"] as $dato){
+                                        if($dato['id_rol'] ==  $data["usuario"]["id_rol"]){
+                                            echo "<option hidden value=".$dato['id_rol']."></option>";
+                                        }else{
+                                            echo "<option  value=".$dato['id_rol'].">".$dato['nombre_rol']."</option>";
+                                        }
+                                        
+    
                                     }
-                                    
-
                                 }
                             ?>
                         </select>

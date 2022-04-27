@@ -22,8 +22,8 @@ class CentroController {
     }
     public function guardar(){
         $id = null;
-        $nombre = $_POST["nombre"];
-        $direccion = $_POST["direccion"];
+        $nombre = strtoupper($_POST["nombre"]);
+        $direccion = strtoupper($_POST["direccion"]);
         $encargado = $_POST["usuario"];
 
         $centros = new Centro_model();
@@ -43,8 +43,8 @@ class CentroController {
     }
     public function actualizar(){
         $id = $_POST["id"];
-        $nombre = $_POST["nombre"];
-        $direccion = $_POST["direccion"];
+        $nombre = strtoupper($_POST["nombre"]);
+        $direccion = strtoupper($_POST["direccion"]);
         $encargado = $_POST["encargado"];
         
         $centros = new Centro_model();

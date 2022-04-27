@@ -10,7 +10,7 @@ class Categoria_model{
     }
 
     public function get_categorias(){
-        $sql = "SELECT * FROM categoria";
+        $sql = "SELECT * FROM categoria ORDER BY nombre ASC";
         $resultado = $this->db->query($sql);
 
         while($row = $resultado->fetch_assoc()){

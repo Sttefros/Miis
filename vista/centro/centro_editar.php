@@ -1,3 +1,19 @@
+<?php 
+    if(!isset($_SESSION)){
+        session_start();
+    }
+    
+ if(!isset($_SESSION['administrador'])){
+    if(!isset($_SESSION['encargado'])){
+        if(!isset($_SESSION['sololectura'])){
+            header('Location: http://localhost/miis/');
+        }
+    }
+ }
+ if(time() - $_SESSION['time'] > 1200) {
+    header('Location: http://localhost/miis/');
+ }
+?>
 <!-- INCLUIR ARCHIVO CABECERA.PHP -->
 <?php require_once 'C:/wamp64/www/miis/vista/includes/cabecera.php'?>
 <!-- INCLUIR ARCHIVO LATERAL.PHP -->

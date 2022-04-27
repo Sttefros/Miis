@@ -43,14 +43,17 @@ class Usuario_model{
             $verify = password_verify($password, $row['password']);
             // verificar el resultado de la validacion de la password
             if($verify == true){
-                if($row['id_rol'] == 1){
+                if($row['id_rol'] == 1 OR $row['id_rol'] == 4){
                     $_SESSION['administrador'] = $row;
+                    $_SESSION['time'] = time();
                     return $_SESSION['administrador'];
                 }else if($row['id_rol'] == 2){
                     $_SESSION['encargado'] = $row;
+                    $_SESSION['time'] = time();
                     return $_SESSION['encargado'];
                 }else if($row['id_rol'] == 3){
                     $_SESSION['sololectura'] = $row;
+                    $_SESSION['time'] = time();
                     return $_SESSION['sololectura'];
                 }               
             }else{
@@ -71,13 +74,26 @@ class Usuario_model{
         $resultado1 = $this->db->query($validacioncorreo);
         $row = $resultado->fetch_assoc();
         $row1 = $resultado1->fetch_assoc();
-        
+        $rest = substr($rut, -1);
+        $regex = "/^([a-zA-Z0-9\.]+@+[a-zA-Z]+(\.)+[a-zA-Z]{2,3})$/";
+        // $regexc = "/^([K0-9])$/";
+        $regexcf = "/^([0-9]{1,2}[0-9]{3}[0-9]{3}[K0-9]{1})$/";
+        $asd = preg_match($regex, $correo);
+        $dsa = preg_match($regexcf, $rut);
         if($row['cantidad'] > 0){?>
             <script>alert("El rut ya se encuentra registrado");</script><?php
         }elseif($row1['corre'] > 0){?>
             <script>alert("El correo ya se encuentra registrado");</script><?php
         }else{
-            $resultado = $this->db->query("INSERT INTO usuario (id_usuario,rut,password,telefono,correo,id_rol) VALUES (null, '$rut', '$password', '$telefono', '$correo', '$rol')");
+            if($asd == 1){
+                if($dsa == 1){
+                    $resultado = $this->db->query("INSERT INTO usuario (id_usuario,rut,password,telefono,correo,id_rol) VALUES (null, '$rut', '$password', '$telefono', '$correo', '$rol')");
+                }else{?>
+                    <script>alert("Ingrese formato de rut correcto");</script><?php
+                }
+            }else{?>
+                <script>alert("Ingrese formato de correo correcto");</script><?php
+            }
         }
         
     }
@@ -89,7 +105,7 @@ class Usuario_model{
         if($row == 0){
             $resultado = false;
         }else{
-            $resultado = $this->db->query("DELETE FROM usuario WHERE id_usuario = '$id' AND id_rol != '1'");
+            $resultado = $this->db->query("DELETE FROM usuario WHERE id_usuario = '$id' AND id_rol != '1' AND id_rol != '4'");
         }
 
         if($resultado == true){?>
@@ -100,7 +116,19 @@ class Usuario_model{
    
     }
     public function modificarUsuario($id, $rut, $password, $telefono, $correo, $rol){
-        $resultado = $this->db->query("UPDATE usuario SET rut = '$rut' , password = '$password', telefono = '$telefono' , correo = '$correo', id_rol = '$rol' WHERE id_usuario = '$id'");
+        $regex = "/^([a-zA-Z0-9\.]+@+[a-zA-Z]+(\.)+[a-zA-Z]{2,3})$/";
+        $regexcf = "/^([0-9]{1,2}[0-9]{3}[0-9]{3}[K0-9]{1})$/";
+        $asd = preg_match($regex, $correo);
+        $dsa = preg_match($regexcf, $rut);
+        if($asd == 1){
+            if($dsa == 1){
+                $resultado = $this->db->query("UPDATE usuario SET rut = '$rut' , password = '$password', telefono = '$telefono' , correo = '$correo', id_rol = '$rol' WHERE id_usuario = '$id'");
+            }else{?>
+                <script>alert("Ingrese formato de rut correcto");</script><?php
+            }
+        }else{?>
+            <script>alert("Ingrese formato de correo correcto);</script><?php
+        }
     }
     public function getUsuario($id){
         $sql = "SELECT d.*, c.nombre_rol AS 'rol'

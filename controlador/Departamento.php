@@ -21,7 +21,7 @@ class DepartamentoController{
     }
     public function guardar(){
         $id = null;
-        $nombre = $_POST["nombre"];
+        $nombre = strtoupper($_POST["nombre"]);
         $centro = $_POST["centro"];
         $departamentos = new Departamento_model();
         $departamentos->insertarDepartamento($id, $nombre,$centro);
@@ -39,7 +39,7 @@ class DepartamentoController{
     }
     public function actualizar(){
         $id = $_POST["id"];
-        $nombre = $_POST["nombre"];
+        $nombre = strtoupper($_POST["nombre"]);
         $departamento = new Departamento_model();
         $departamento->modificarDepartamento($id, $nombre);
 

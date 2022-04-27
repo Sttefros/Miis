@@ -12,7 +12,7 @@ class LoginController{
     }
     public function login(){
         session_start();
-        $correo = $_POST["correo"];
+        $correo = strtoupper($_POST["correo"]);
         $password = $_POST["password"];
         $usuario = new Usuario_model();
         $insumo = new Insumo_model();
@@ -61,7 +61,7 @@ class LoginController{
         }else if(isset($_SESSION['encargado'])){
             unset($_SESSION['encargado']);
             session_destroy();
-            header("Location: index.php");
+            
         }
     }
 }  

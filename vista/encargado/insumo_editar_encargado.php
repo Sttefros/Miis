@@ -1,3 +1,19 @@
+<?php 
+    if(!isset($_SESSION)){
+        session_start();
+    }
+    
+ if(!isset($_SESSION['administrador'])){
+    if(!isset($_SESSION['encargado'])){
+        if(!isset($_SESSION['sololectura'])){
+            header('Location: http://localhost/miis/');
+        }
+    }
+ }
+ if(time() - $_SESSION['time'] > 1200) {
+    header('Location: http://localhost/miis/');
+ }
+?>
 <!-- INCLUIR ARCHIVO CABECERA.PHP -->
 <?php require_once 'C:/wamp64/www/miis/vista/includes/cabecera.php'?>
 <!-- INCLUIR ARCHIVO LATERAL.PHP -->
@@ -27,7 +43,7 @@
                    
                     <input type="submit" id="btninsumo" name="btncrear" value="GUARDAR" style=" border-radius:5px"/>
                     <br>
-                    <?php if($data["insumo"]["id_categoria"] == 1 || $data["insumo"]["id_categoria"] == 2 || $data["insumo"]["id_categoria"] == 3 || $data["insumo"]["id_categoria"] == 4 || $data["insumo"]["id_categoria"] == 5 || $data["insumo"]["id_categoria"] == 9 || $data["insumo"]["id_categoria"] == 10 || $data["insumo"]["id_categoria"] == 11 ){ ?>
+                    <?php if($data["insumo"]["id_categoria"] == 1 || $data["insumo"]["id_categoria"] == 2 || $data["insumo"]["id_categoria"] == 3 || $data["insumo"]["id_categoria"] == 4 || $data["insumo"]["id_categoria"] == 5 || $data["insumo"]["id_categoria"] == 9 || $data["insumo"]["id_categoria"] == 10 || $data["insumo"]["id_categoria"] == 11|| $data["insumo"]["id_categoria"] == 12 || $data["insumo"]["id_categoria"] == 13 || $data["insumo"]["id_categoria"] == 14 || $data["insumo"]["id_categoria"] == 15 || $data["insumo"]["id_categoria"] == 16 || $data["insumo"]["id_categoria"] == 17 || $data["insumo"]["id_categoria"] == 18|| $data["insumo"]["id_categoria"] == 19 || $data["insumo"]["id_categoria"] == 20 || $data["insumo"]["id_categoria"] == 21 ){ ?>
                             <label >UBICACION: </label>
                             <input type="hidden"  name="ubicacionpervia" value="<?php echo utf8_encode($data["insumo"]["id_centro"]) ?>" readonly/>
                             <input type="hidden"  name="departamentopervio" value="<?php echo utf8_encode($data["insumo"]["id_departamento"]) ?>" readonly/>

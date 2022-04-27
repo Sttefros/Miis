@@ -1,3 +1,19 @@
+<?php 
+    if(!isset($_SESSION)){
+        session_start();
+    }
+    
+ if(!isset($_SESSION['administrador'])){
+    if(!isset($_SESSION['encargado'])){
+        if(!isset($_SESSION['sololectura'])){
+            header('Location: http://localhost/miis/');
+        }
+    }
+ }
+ if(time() - $_SESSION['time'] > 1200) {
+    header('Location: http://localhost/miis/');
+ }
+?>
 <?php require_once 'C:/wamp64/www/miis/vista/includes/cabecera.php'?>
 <?php require_once 'C:/wamp64/www/miis/vista/includes/lateral.php'?>
             <!-- validacion si existe la sesion error login  -->
@@ -40,7 +56,7 @@
                                 ?>
                                 <td> 
                                     <a  href='index.php?c=departamento&a=modificar&id=<?php echo $dato["id_departamento"]?>'><button class='btn-edit' ><i class='bx bx-edit'></i> </button> </a>
-                                    <a  href='index.php?c=departamento&a=eliminar&id=<?php echo $dato["id_departamento"]?>' ><button class='btn-delete'><i class='bx bx-trash'></i></button> </a> 
+                                    <a  href='index.php?c=departamento&a=eliminar&id=<?php echo $dato["id_departamento"]?>' ><button class='btn-delete' onClick='return alerta_eliminar_departamento()' ><i class='bx bx-trash'></i></button> </a> 
                                 </td>
                                 <?php
                                     }
@@ -63,7 +79,8 @@
 
         
     var a = $('#table_departamento').dataTable({
-        "scrollY":        "265px",
+        "scrollY":        '45vh',
+        // "scrollY":        "265px",
         "scrollCollapse": true,
         // "paging":         false,
             "language": {

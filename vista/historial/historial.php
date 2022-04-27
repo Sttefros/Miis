@@ -1,3 +1,19 @@
+<?php 
+    if(!isset($_SESSION)){
+        session_start();
+    }
+    
+ if(!isset($_SESSION['administrador'])){
+    if(!isset($_SESSION['encargado'])){
+        if(!isset($_SESSION['sololectura'])){
+            header('Location: http://localhost/miis/');
+        }
+    }
+ }
+ if(time() - $_SESSION['time'] > 1200) {
+    header('Location: http://localhost/miis/');
+ }
+?>
 <?php require_once 'C:/wamp64/www/miis/vista/includes/cabecera.php'?>
 <?php require_once 'C:/wamp64/www/miis/vista/includes/lateral.php'?>
             
@@ -70,7 +86,8 @@
 
 
     var a = $('#table_historial').dataTable({
-        "scrollY":        "265px",
+        "scrollY":        '45vh',
+        // "scrollY":        "265px",
         "scrollCollapse": true,
         // "paging":         false,
             "language": {
@@ -116,11 +133,15 @@
                         text:      '<img src="vista/assets/img/002-pdf.png" >',
                         header: true,
                         footer: true,
+                        fontSize: '8',
                         title: "Reporte historial de movimientos",
                         titleAttr: "Exportar a PDF",
                         exportOptions: {
                             columns: [  1, 2, 3 ,4, 5, 6, 7]
-                        }
+                        },
+                        customize: function(doc) {
+                            doc.defaultStyle.fontSize = 8; //<-- set fontsize to 16 instead of 10 
+                        }  
                     }
                 ]
         });

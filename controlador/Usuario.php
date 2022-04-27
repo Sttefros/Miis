@@ -21,9 +21,9 @@ class UsuarioController{
     }
     public function guardar(){
         $id = null;
-        $rut = $_POST["rut"];
+        $rut = strtoupper($_POST["rut"]);
         $password = $_POST["password"];
-        $correo = $_POST["correo"];
+        $correo = strtoupper($_POST["correo"]);
         $telefono = $_POST["telefono"];
         $rol = $_POST["rol"];
         $password_segura = password_hash($password,PASSWORD_BCRYPT,['cost'=>4]); //VERIFICAR PASS
@@ -54,12 +54,14 @@ class UsuarioController{
     }
     public function actualizar(){
         $id = $_POST["id"];
-        $rut = $_POST["rut"];
+        $rut = strtoupper($_POST["rut"]);
         $password = $_POST["password"];
-        $correo = $_POST["correo"];
+        $correo = strtoupper($_POST["correo"]);
         $telefono = $_POST["telefono"];
         $rol = $_POST["rol"];
         $password_segura = password_hash($password,PASSWORD_BCRYPT,['cost'=>4]); //VERIFICAR PASS
+        $rut = str_replace('.', '', $rut);
+        $rut = str_replace('-', '', $rut);
         $usuarios = new Usuario_model();
         $usuarios->modificarUsuario($id, $rut, $password_segura, $telefono, $correo, $rol);
 

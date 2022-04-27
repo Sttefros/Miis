@@ -60,7 +60,8 @@ require_once 'configuracion/conexion.php';
         public function listar_combo_box($iddepartamento){
             $sql = "SELECT d.* 
                     FROM box d
-                    WHERE d.id_departamento = $iddepartamento";
+                    WHERE d.id_departamento = $iddepartamento
+                    ORDER BY d.nombre ASC";
             $resultado = $this->db->query($sql);
     
             // while ($row = $resultado->fetch_assoc()){

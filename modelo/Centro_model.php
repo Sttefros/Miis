@@ -15,7 +15,8 @@ class Centro_model {
         $sql = "SELECT c.* ,
 		        u.correo AS 'encargado'
                 FROM centro c
-                LEFT JOIN usuario u ON c.id_usuario = u.id_usuario";
+                LEFT JOIN usuario u ON c.id_usuario = u.id_usuario
+                ORDER BY c.nombre ASC";
         // guardar resultado de la consulta en una variable resultado
         $resultado = $this->db->query($sql);
         // hacer array associativo del resultado de la query y recorrerlo

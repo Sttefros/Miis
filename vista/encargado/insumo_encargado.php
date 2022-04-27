@@ -1,3 +1,19 @@
+<?php 
+    if(!isset($_SESSION)){
+        session_start();
+    }
+    
+ if(!isset($_SESSION['administrador'])){
+    if(!isset($_SESSION['encargado'])){
+        if(!isset($_SESSION['sololectura'])){
+            header('Location: http://localhost/miis/');
+        }
+    }
+ }
+ if(time() - $_SESSION['time'] > 1200) {
+    header('Location: http://localhost/miis/');
+ }
+?>
 <?php require_once 'C:/wamp64/www/miis/vista/includes/cabecera.php'?>
 <?php require_once 'C:/wamp64/www/miis/vista/includes/lateral.php'?>
 <!-- CAJA PRINCIPAL -->
@@ -58,7 +74,8 @@
         } );
 
     var a = $('#table_insumo').dataTable({
-        "scrollY":        "250px",
+        "scrollY":        '45vh',
+        // "scrollY":        "265px",
         "scrollCollapse": true,
         // "paging":         false,
             "language": {

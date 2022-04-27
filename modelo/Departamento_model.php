@@ -68,7 +68,8 @@ class Departamento_model{
     public function listar_combo_departamento($idcentro){
         $sql = "SELECT d.* 
                 FROM departamento d
-                WHERE d.id_centro = $idcentro";
+                WHERE d.id_centro = $idcentro
+                ORDER BY d.nombre ASC";
         $resultado = $this->db->query($sql);
 
         // while ($row = $resultado->fetch_assoc()){

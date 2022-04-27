@@ -1,7 +1,7 @@
 <nav id="navmenu">
         <div id='logo_content'>
             <div id='logo'>
-                <img src="./vista/assets/img/LOGO.png" width="200" padding-top="15px">
+                <img src="https://sanjoaquin.cl/wp-content/uploads/2021/11/logoblanco.png" width="200" padding-top="15px">
             </div>
         </div>
 

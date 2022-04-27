@@ -12,7 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Felipe Andres Perez Oyarzun">
-    <link rel="shortcut icon" href="https://sanjoaquinsaludable.cl/nuevositio2018/wp-content/themes/sj-theme-1/assets/images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="https://sanjoaquin.cl/wp-content/uploads/2022/01/cropped-iconosj-32x32.png" type="image/x-icon">
     <title>MIIS</title>
     <link rel="stylesheet" href="/miis/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,6 +24,7 @@
     <!-- datatable -->
     <link rel="stylesheet" type="text/css" href="/miis/DataTables/datatables.min.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" >
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css"/>
     <!-- Boxicons import -->
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
     <!-- jquery -->
@@ -39,6 +40,7 @@
 	<script type="text/javascript" src="DataTables/Buttons-2.2.2/js/buttons.dataTables.min.js"></script>
 	<script type="text/javascript" src="DataTables/Buttons-2.2.2/js/buttons.print.min.js"></script>
 	<script type="text/javascript" src="DataTables/Buttons-2.2.2/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
 </head>
 
 <body>

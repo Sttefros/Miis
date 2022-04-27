@@ -84,7 +84,7 @@ Class Insumo_model{
                         INNER JOIN centro u ON i.id_centro = u.id_centro
                         LEFT JOIN departamento d ON i.id_departamento = d.id_departamento
                         LEFT JOIN box b ON b.id_box = i.id_box
-                        WHERE u.id_usuario = '$id'
+                        WHERE u.id_usuario = '$id' AND i.estado = 0 AND i.id_categoria != 6 AND i.id_categoria != 7 AND i.id_categoria != 8 AND i.id_categoria != 16
                         GROUP BY i.num_serie";
         $resultado = $this->db->query($consulta);
 
@@ -218,8 +218,25 @@ Class Insumo_model{
                     }
                     return $this->insumos;
     }
+    public function get_insumo_fuente(){
+        $consulta = "SELECT i.*
+                        ,c.nombre AS 'categoria'
+                        ,u.nombre AS 'ubicacion'
+                        ,d.nombre AS 'departamento'
+                    FROM insumo i
+                    INNER JOIN categoria c ON i.id_categoria = c.id_categoria
+                    INNER JOIN centro u ON i.id_centro = u.id_centro
+                    INNER JOIN departamento d ON i.id_departamento = d.id_departamento
+                    WHERE i.id_categoria = 16 AND i.asignado = 0 AND i.estado = 0";
+                    $resultado = $this->db->query($consulta);
+
+                    while($row = $resultado->fetch_assoc()){
+                        $this->insumos[] = $row;
+                    }
+                    return $this->insumos;
+    }
     public function insertarInsumo($id=null, $marca, $modelo, $serie, $descripcion,$asignado,$estado, $id_centro,$id_departamento, $id_box, $id_categoria,$id_extra,$usuario) {
-        $consulta = $this->db->query("INSERT INTO insumo (id_insumo, marca, modelo , num_serie, descripcion,asignado,estado, id_centro,id_departamento, id_box, id_categoria,id_extras) VALUES (null, '$marca', '$modelo', '$serie', '$descripcion', '$asignado','$estado', '$id_centro','$id_departamento', '$id_box', '$id_categoria', '$id_extra' )");
+        $consulta = $this->db->query("INSERT INTO insumo (id_insumo, marca, modelo , num_serie, descripcion,asignado,estado, id_centro,id_departamento, id_box, id_categoria,id_extras,fecha) VALUES (null, '$marca', '$modelo', '$serie', '$descripcion', '$asignado','$estado', '$id_centro','$id_departamento', '$id_box', '$id_categoria', '$id_extra' ,  CURDATE( ))");
         $lasid = mysqli_insert_id($this->db);
         $resultado1 = $this->db->query("UPDATE insumo SET id_centro = '$id_centro', id_departamento = '$id_departamento',id_box = '$id_box' WHERE id_insumo = '$id_extra'");
         $catego = $this->db->query("SELECT c.* 
@@ -232,7 +249,7 @@ Class Insumo_model{
         return array($lasid,$rowe);
     }
     public function insertarInsumoo($id=null, $marca, $modelo, $serie, $descripcion,$asignado,$estado, $id_centro,$id_departamento, $id_box, $id_categoria,$id_extra=null,$usuario) {
-        $consulta = $this->db->query("INSERT INTO insumo (id_insumo, marca, modelo , num_serie, descripcion,asignado,estado, id_centro,id_departamento, id_box, id_categoria,id_extras) VALUES (null, '$marca', '$modelo', '$serie', '$descripcion', '$asignado','$estado', '$id_centro','$id_departamento', '$id_box', '$id_categoria', null )");
+        $consulta = $this->db->query("INSERT INTO insumo (id_insumo, marca, modelo , num_serie, descripcion,asignado,estado, id_centro,id_departamento, id_box, id_categoria,id_extras,fecha) VALUES (null, '$marca', '$modelo', '$serie', '$descripcion', '$asignado','$estado', '$id_centro','$id_departamento', '$id_box', '$id_categoria', null,  CURDATE( ) )");
         $lasid = mysqli_insert_id($this->db);
         return $lasid;
         // $resulta = $this->db->query("INSERT INTO historial (id_historial,fecha_accion,usuario_entrega,id_insumo,categoria,centro,departamento,box) VALUE (null, CURDATE( ),'$usuario', '$lasid', '$id_categoria', '$id_centro', '$id_departamento','$id_box')");
@@ -302,25 +319,44 @@ Class Insumo_model{
         // $consulta = $this->db->query("UPDATE insumo SET id_extras ='$id' WHERE id_insumo ='$ida'");
        
     }
+    public function updatearinsumoextrafuente($serie){
+        $consulta = "SELECT i.*, e.id_categoria
+        FROM insumo i
+        INNER JOIN insumo e ON i.id_extras = e.id_insumo
+        WHERE i.num_serie = '$serie'
+        AND e.id_categoria = 16";
+
+        $resultado = $this->db->query($consulta);
+        $row = $resultado->fetch_assoc();
+        return $row;
+        
+        // $consulta = $this->db->query("UPDATE insumo SET id_extras ='$id' WHERE id_insumo ='$ida'");
+       
+    }
     public function darDeBajaInsumo($id){
         $consulta = "SELECT * FROM insumo WHERE id_insumo = '$id'";
         $resultado = $this->db->query($consulta);
         $row = $resultado->fetch_assoc();
         if($row['id_categoria'] == 6 || $row['id_categoria'] == 7 || $row['id_categoria'] == 8){
             if($row['asignado'] == 0){
-                $sql = $this->db->query("UPDATE insumo SET estado = '1' WHERE id_insumo = '$id'");
+                if($row['estado'] == 0){
+                    $sql = $this->db->query("UPDATE insumo SET estado = '1' WHERE id_insumo = '$id'");?>
+                    <script>alert("Insumo dado de baja");</script><?php
+                }else{
+                    $sql = false;
+                }
             }else{
                 $sql = false;
             }
         }else{
-            $sql = $this->db->query("UPDATE insumo SET estado = '1' WHERE id_insumo = '$id'");
+            if($row['estado'] == 0){
+                $sql = $this->db->query("UPDATE insumo SET estado = '1' WHERE id_insumo = '$id'");?>
+                <script>alert("Insumo dado de baja");</script><?php
+            }else{
+                $sql = false;
+            }
         }
-        if($sql == true){?>
-            <script>alert("Insumo dado de baja");</script><?php
-        }else{?>
-            <script>alert("Insumo no dado de baja");</script><?php
-        }
-        return $row;
+        return $sql;
     }
 }
 ?>

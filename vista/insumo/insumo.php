@@ -33,6 +33,8 @@
                             <th>Recurso</th>
                             <th>Estado</th>
                             <th>Ubicacion</th>
+                            <th style="display:none;">Departamento</th>
+                            <th style="display:none;">Box</th>
                             <th>Categoria</th>
                             <th>Fecha</th>
                             <?php 
@@ -70,6 +72,8 @@
                                             }  
                                      ?> </td>
                                 <td> <?php echo utf8_encode($dato['ubicacion']);?> </td>
+                                <td style="display:none;"> <?php echo utf8_encode($dato['departamento']);?> </td>
+                                <td style="display:none;"> <?php echo utf8_encode($dato['box']);?> </td>
                                 <td> <?php echo $dato['categoria'];?> </td>
                                 <td> <?php echo $dato['fecha'];?> </td>
                                 <?php 
@@ -135,7 +139,7 @@
                         title: "Insumos informaticos CORMU San Joaquin",
                         titleAttr: "Exportar a Excel",
                         exportOptions: {
-                            columns: [ 0, 1, 2, 3 ,4, 5, 6, 7]
+                            columns: [ 0, 1, 2, 3 ,4, 5, 6, 7, 8, 9]
                         }
                     },
                     {
@@ -148,7 +152,7 @@
                         title: "Insumos informaticos CORMU San Joaquin",
                         titleAttr: "Exportar a PDF",
                         exportOptions: {
-                            columns: [ 0, 1, 2, 3 ,4, 5, 6, 7]
+                            columns: [ 0, 1, 2, 3 ,4, 5, 6, 7, 8, 9]
                         }
                     },
                     {

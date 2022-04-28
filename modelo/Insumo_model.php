@@ -249,9 +249,21 @@ Class Insumo_model{
         return array($lasid,$rowe);
     }
     public function insertarInsumoo($id=null, $marca, $modelo, $serie, $descripcion,$asignado,$estado, $id_centro,$id_departamento, $id_box, $id_categoria,$id_extra=null,$usuario) {
-        $consulta = $this->db->query("INSERT INTO insumo (id_insumo, marca, modelo , num_serie, descripcion,asignado,estado, id_centro,id_departamento, id_box, id_categoria,id_extras,fecha) VALUES (null, '$marca', '$modelo', '$serie', '$descripcion', '$asignado','$estado', '$id_centro','$id_departamento', '$id_box', '$id_categoria', null,  CURDATE( ) )");
-        $lasid = mysqli_insert_id($this->db);
-        return $lasid;
+        
+        $validacionNombre = "SELECT COUNT(marca) AS 'serie' FROM insumo WHERE num_serie = '$serie' ";
+            $resultado = $this->db->query($validacionNombre);
+            $row = $resultado->fetch_assoc();
+
+            if($row['serie'] > 0){?>
+                <script>alert("El insumo no pudo registrarse, numero de serie ya existente");</script><?php
+            }else {
+                $consulta = $this->db->query("INSERT INTO insumo (id_insumo, marca, modelo , num_serie, descripcion,asignado,estado, id_centro,id_departamento, id_box, id_categoria,id_extras,fecha) VALUES (null, '$marca', '$modelo', '$serie', '$descripcion', '$asignado','$estado', '$id_centro','$id_departamento', '$id_box', '$id_categoria', null,  CURDATE( ) )");
+                $lasid = mysqli_insert_id($this->db);
+                return $lasid;?>
+                <script>alert("insumo creado exitosamente");</script><?php
+            }
+
+       
         // $resulta = $this->db->query("INSERT INTO historial (id_historial,fecha_accion,usuario_entrega,id_insumo,categoria,centro,departamento,box) VALUE (null, CURDATE( ),'$usuario', '$lasid', '$id_categoria', '$id_centro', '$id_departamento','$id_box')");
     }
     // -----------------------------------------MODIFICAR ESTADO DE UN INSUMO ---------------------------------------------------------------

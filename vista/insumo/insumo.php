@@ -13,6 +13,7 @@
  if(time() - $_SESSION['time'] > 1200) {
     header('Location: http://localhost/miis/');
  }
+ $timer = time() - $_SESSION['time'];
 ?>
 
 <?php require_once 'C:/wamp64/www/miis/vista/includes/cabecera.php'?>
@@ -21,7 +22,8 @@
      
         <div class="container">
         <h1 ><?php echo $data["titulo"]?></h1>
-        
+        <div id="output">
+        </div>
             <div class="table-responsive table-primary">
           
                 <table cellpadding="0" cellspacing="0" border="0" class="table  table-bordered  table-hover" id="table_insumo">
@@ -97,9 +99,30 @@
                 </div>
             </div>
 <script>
+   
     $(document).ready(function() {
     $('#table_insumo').DataTable();
         } );
+    
+        function showCountdown(countSeconds)
+{  
+   var countStatus = new Date(1000 * countSeconds).toISOString().substr(11, 8);
+   document.getElementById('output').innerHTML = "Tiempo restante : " + countStatus;
+}
+var count = 3600;
+
+function countdown() {
+  // starts countdown
+  if (count === 0) {
+     return;
+  }
+  count--;
+  setTimeout(countdown, 1000);
+  showCountdown(count);
+  
+};
+
+countdown();
 
     var a = $('#table_insumo').dataTable({
         "scrollY":        '45vh',

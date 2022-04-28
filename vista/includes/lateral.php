@@ -67,7 +67,8 @@
                 </a>
             </li>
             <?php }?>
-            
+            <div id="output">
+        </div>
         </ul>
         <div id="navperfil">
         <?php require_once 'perfil.php';?>
@@ -75,3 +76,5 @@
         
         
     </nav> 
+
+   

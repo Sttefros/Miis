@@ -285,6 +285,9 @@ Class Insumo_model{
     public function modificarInsumoPeri($id, $marca, $modelo, $descripcion,$id_centro,$id_departamento,$id_box){        
         $resultado = $this->db->query("UPDATE insumo SET  marca='$marca', modelo='$modelo', descripcion='$descripcion' ,id_centro = '$id_centro', id_departamento = '$id_departamento' , id_box = '$id_box' WHERE id_insumo = $id");
     }
+    public function modificarInsumoPeric($id,$id_centro,$id_departamento,$id_box){        
+        $resultado = $this->db->query("UPDATE insumo SET  id_centro = '$id_centro', id_departamento = '$id_departamento' , id_box = '$id_box' WHERE num_serie = $id");
+    }
     public function modificarInsumoEncargado($id,$descripcion){
         $resultado = $this->db->query("UPDATE insumo SET   descripcion='$descripcion'  WHERE id_insumo = $id");
     }

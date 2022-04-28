@@ -41,6 +41,7 @@
 	<script type="text/javascript" src="DataTables/Buttons-2.2.2/js/buttons.print.min.js"></script>
 	<script type="text/javascript" src="DataTables/Buttons-2.2.2/js/buttons.html5.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    
 </head>
 
 <body>

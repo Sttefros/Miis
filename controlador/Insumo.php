@@ -1067,6 +1067,7 @@ Class InsumoController{
 // -------------------------------------------------------------------CATEGORIA PC ESCRITORIO-------------------------------------------------------------------------------------------
                     case $_POST["categoriass"] == 1 :
                         $insumo->modificarInsumoPeri($id, $marca, $modelo, $descripcion, $id_centro, $id_departamento, $id_box);
+                        $insumo->modificarInsumoPeric($serie,$id_centro,$id_departamento,$id_box);
                         if(isset($_POST["lista22"])){
                             if(isset($_POST["lista33"])){
                                 $historial->insertarHistorial($idd,$usuario, $id, $id_categoria, $id_centro, $id_departamento,$id_box);
@@ -1079,6 +1080,8 @@ Class InsumoController{
                     break;
 // -------------------------------------------------------------------CATEGORIA NOTEBOOK-------------------------------------------------------------------------------------------
                     case $_POST["categoriass"] == 2 :
+                        $insumo->modificarInsumoPeri($id, $marca, $modelo, $descripcion, $id_centro, $id_departamento, $id_box);
+                        $insumo->modificarInsumoPeric($serie,$id_centro,$id_departamento,$id_box);
                         if(isset($_POST["lista22"])){
                             if(isset($_POST["lista33"])){
                                 $insumo->modificarInsumoPeri($id, $marca, $modelo, $descripcion, $id_centro, $id_departamento, $id_box);
